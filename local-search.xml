@@ -4,12 +4,18 @@
   
   
   <entry>
-    <title>Hello World</title>
+    <title>We1c0me!</title>
     <link href="/2024/10/07/hello-world/"/>
     <url>/2024/10/07/hello-world/</url>
     
     <content type="html"><![CDATA[<p>We1c0me to Ve2m0uth’s blogs!</p>]]></content>
     
+    
+    <categories>
+      
+      <category>Reverse</category>
+      
+    </categories>
     
     
   </entry>
