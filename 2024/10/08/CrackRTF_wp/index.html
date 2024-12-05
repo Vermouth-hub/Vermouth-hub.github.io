@@ -19,25 +19,25 @@
   <meta name="author" content="Ve2m0uth">
   <meta name="keywords" content="reverse,python">
   
-    <meta name="description" content="We1c0me to my bolg!  (⑅˃◡˂⑅)    1print(&quot;Best wishes to you!&quot;)">
+    <meta name="description" content="今天遇到一道reverse题，挺有意思的，记录一下。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="We1c0me!">
-<meta property="og:url" content="https://vermouth-hub.github.io/2024/10/08/hello/index.html">
+<meta property="og:title" content="CrackRTF_Wp!!!">
+<meta property="og:url" content="https://vermouth-hub.github.io/2024/10/08/CrackRTF_wp/index.html">
 <meta property="og:site_name" content="We1c0me! (⑅˃◡˂⑅)">
-<meta property="og:description" content="We1c0me to my bolg!  (⑅˃◡˂⑅)    1print(&quot;Best wishes to you!&quot;)">
+<meta property="og:description" content="今天遇到一道reverse题，挺有意思的，记录一下。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://haowallpaper.com/link/common/file/previewFileImg/34144b8a334af97e83e8aad84fb794a8">
+<meta property="og:image" content="https://vermouth-hub.github.io/2024/10/08/CrackRTF_wp/image/Crack_rtf1.png">
+<meta property="og:image" content="https://vermouth-hub.github.io/2024/10/08/CrackRTF_wp/image/Crack_rtf2.png">
 <meta property="article:published_time" content="2024-10-08T15:19:32.000Z">
-<meta property="article:modified_time" content="2024-10-09T01:19:35.655Z">
+<meta property="article:modified_time" content="2024-12-05T13:28:29.534Z">
 <meta property="article:author" content="Ve2m0uth">
-<meta property="article:tag" content="category">
 <meta property="article:tag" content="Reverse">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://haowallpaper.com/link/common/file/previewFileImg/34144b8a334af97e83e8aad84fb794a8">
+<meta name="twitter:image" content="https://vermouth-hub.github.io/2024/10/08/CrackRTF_wp/image/Crack_rtf1.png">
   
   
   
-  <title>We1c0me! - We1c0me! (⑅˃◡˂⑅)</title>
+  <title>CrackRTF_Wp!!! - We1c0me! (⑅˃◡˂⑅)</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -191,7 +191,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="We1c0me!"></span>
+            <span id="subtitle" data-typed-text="CrackRTF_Wp!!!"></span>
           
         </div>
 
@@ -214,7 +214,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5 字
+          169 字
         
       </span>
     
@@ -225,7 +225,7 @@
         
         
         
-          1 分钟
+          2 分钟
         
       </span>
     
@@ -262,17 +262,21 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">We1c0me!</h1>
+            <h1 id="seo-header">CrackRTF_Wp!!!</h1>
             
             
               <div class="markdown-body">
                 
-                <p><em>We1c0me to my bolg!  (⑅˃◡˂⑅)</em></p>
-<img src="https://haowallpaper.com/link/common/file/previewFileImg/34144b8a334af97e83e8aad84fb794a8" srcset="/img/loading.gif" lazyload style="zoom:50%">
+                <p><em>今天遇到一道reverse题，挺有意思的，记录一下。</em></p>
+<span id="more"></span>
 
-<hr>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Best wishes to you!&quot;</span>)<br></code></pre></td></tr></table></figure>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给了一个exe程序，查壳后发现为32位，扔进ida中查看</p>
+<img src="./image/Crack_rtf1.png" srcset="/img/loading.gif" lazyload style="zoom:30%">
 
+<p>程序大致内容为输入两个password，如果两个都正确就通过验证。接下来重点就是分析两个password的验证过程。<br>每个strcmp函数上方都对input进行了一定的处理，然后和给定的字符串比较。进入处理函数查看：</p>
+<img src="./image/Crack_rtf2.png" srcset="/img/loading.gif" lazyload style="zoom:30%">
+
+<p>经过查阅发现加密函数为md5加密，直接用soda解密即可。最后输入两个正确的password后程序生成一个解密的rtf文件，打开即可看到flag.<br>Flag{N0_M0re_Free_Bugs}</p>
 
                 
               </div>
@@ -284,8 +288,6 @@
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/category/" class="print-no-link">#category</a>
       
         <a href="/tags/Reverse/" class="print-no-link">#Reverse</a>
       
@@ -299,8 +301,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>We1c0me!</div>
-      <div>https://vermouth-hub.github.io/2024/10/08/hello/</div>
+      <div>CrackRTF_Wp!!!</div>
+      <div>https://vermouth-hub.github.io/2024/10/08/CrackRTF_wp/</div>
     </div>
     <div class="license-meta">
       
