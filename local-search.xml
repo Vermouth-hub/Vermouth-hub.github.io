@@ -8,7 +8,7 @@
     <link href="/2024/10/08/CrackRTF_wp/"/>
     <url>/2024/10/08/CrackRTF_wp/</url>
     
-    <content type="html"><![CDATA[<p><em>今天遇到一道reverse题，挺有意思的，记录一下。</em></p><span id="more"></span><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给了一个exe程序，查壳后发现为32位，扔进ida中查看</p><img src="./image/Crack_rtf1.png" style="zoom:30%"><p>程序大致内容为输入两个password，如果两个都正确就通过验证。接下来重点就是分析两个password的验证过程。<br>每个strcmp函数上方都对input进行了一定的处理，然后和给定的字符串比较。进入处理函数查看：</p><img src="./image/Crack_rtf2.png" style="zoom:30%"><p>经过查阅发现加密函数为md5加密，直接用soda解密即可。最后输入两个正确的password后程序生成一个解密的rtf文件，打开即可看到flag.<br>Flag{N0_M0re_Free_Bugs}</p>]]></content>
+    <content type="html"><![CDATA[<p><em>今天遇到一道reverse题，挺有意思的，记录一下。</em></p><span id="more"></span><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给了一个exe程序，查壳后发现为32位，扔进ida中查看</p><p><img src="/image/Crack_rtf1.png" alt="picture"></p><p>程序大致内容为输入两个password，如果两个都正确就通过验证。接下来重点就是分析两个password的验证过程。<br>每个strcmp函数上方都对input进行了一定的处理，然后和给定的字符串比较。进入处理函数查看：</p><p><img src="/image/Crack_rtf2.png" alt="picture"></p><p>经过查阅发现加密函数为md5加密，直接用soda解密即可。最后输入两个正确的password后程序生成一个解密的rtf文件，打开即可看到flag.<br>Flag{N0_M0re_Free_Bugs}</p>]]></content>
     
     
     
