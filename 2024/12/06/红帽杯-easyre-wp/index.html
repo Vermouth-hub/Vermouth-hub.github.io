@@ -19,25 +19,27 @@
   <meta name="author" content="Ve2m0uth">
   <meta name="keywords" content="reverse,python">
   
-    <meta name="description" content="今天遇到一道reverse题，挺有意思的，记录一下。">
+    <meta name="description" content="红帽杯 easyre wp挺有难度的一道题，记录一下.首先第一步，扔进die中，发现有upx加密，解密一下，扔进ida中找到main函数。 这里有几个函数没识别出来，点击去也看不懂，动调看一下。 动调的时候发现这个函数中的char类型其实存储的是输入的字符串。发现这个以后后面的函数逻辑都比较清楚了。 下面的一个函数猜测是取长度操作，因此第一段加密就是一个简单的xor，解密后得到一串线索：Info:">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CrackRTF_Wp!!!">
-<meta property="og:url" content="https://vermouth-hub.github.io/2024/10/08/Crack-rtf-wp/index.html">
+<meta property="og:title" content="红帽杯 easyre wp">
+<meta property="og:url" content="https://vermouth-hub.github.io/2024/12/06/%E7%BA%A2%E5%B8%BD%E6%9D%AF-easyre-wp/index.html">
 <meta property="og:site_name" content="We1c0me! (⑅˃◡˂⑅)">
-<meta property="og:description" content="今天遇到一道reverse题，挺有意思的，记录一下。">
+<meta property="og:description" content="红帽杯 easyre wp挺有难度的一道题，记录一下.首先第一步，扔进die中，发现有upx加密，解密一下，扔进ida中找到main函数。 这里有几个函数没识别出来，点击去也看不懂，动调看一下。 动调的时候发现这个函数中的char类型其实存储的是输入的字符串。发现这个以后后面的函数逻辑都比较清楚了。 下面的一个函数猜测是取长度操作，因此第一段加密就是一个简单的xor，解密后得到一串线索：Info:">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://vermouth-hub.github.io/2024/10/08/Crack-rtf-wp/Crack_rtf1.png">
-<meta property="og:image" content="https://vermouth-hub.github.io/2024/10/08/Crack-rtf-wp/Crack_rtf2.png">
-<meta property="article:published_time" content="2024-10-08T15:19:32.000Z">
-<meta property="article:modified_time" content="2024-12-05T13:42:39.785Z">
+<meta property="og:image" content="https://vermouth-hub.github.io/2024/12/06/%E7%BA%A2%E5%B8%BD%E6%9D%AF-easyre-wp/1.png">
+<meta property="og:image" content="https://vermouth-hub.github.io/2024/12/06/%E7%BA%A2%E5%B8%BD%E6%9D%AF-easyre-wp/2.png">
+<meta property="og:image" content="https://vermouth-hub.github.io/2024/12/06/%E7%BA%A2%E5%B8%BD%E6%9D%AF-easyre-wp/3.png">
+<meta property="og:image" content="https://vermouth-hub.github.io/2024/12/06/%E7%BA%A2%E5%B8%BD%E6%9D%AF-easyre-wp/4.png">
+<meta property="article:published_time" content="2024-12-06T15:08:24.000Z">
+<meta property="article:modified_time" content="2024-12-06T15:31:25.874Z">
 <meta property="article:author" content="Ve2m0uth">
 <meta property="article:tag" content="Reverse">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://vermouth-hub.github.io/2024/10/08/Crack-rtf-wp/Crack_rtf1.png">
+<meta name="twitter:image" content="https://vermouth-hub.github.io/2024/12/06/%E7%BA%A2%E5%B8%BD%E6%9D%AF-easyre-wp/1.png">
   
   
   
-  <title>CrackRTF_Wp!!! - We1c0me! (⑅˃◡˂⑅)</title>
+  <title>红帽杯 easyre wp - We1c0me! (⑅˃◡˂⑅)</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -191,7 +193,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="CrackRTF_Wp!!!"></span>
+            <span id="subtitle" data-typed-text="红帽杯 easyre wp"></span>
           
         </div>
 
@@ -202,8 +204,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-10-08 23:19" pubdate>
-          2024年10月8日 晚上
+        <time datetime="2024-12-06 23:08" pubdate>
+          2024年12月6日 晚上
         </time>
       </span>
     
@@ -214,7 +216,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          169 字
+          542 字
         
       </span>
     
@@ -225,7 +227,7 @@
         
         
         
-          2 分钟
+          5 分钟
         
       </span>
     
@@ -262,19 +264,21 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">CrackRTF_Wp!!!</h1>
+            <h1 id="seo-header">红帽杯 easyre wp</h1>
             
             
               <div class="markdown-body">
                 
-                <p><em>今天遇到一道reverse题，挺有意思的，记录一下。</em></p>
-<span id="more"></span>
-
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给了一个exe程序，查壳后发现为32位，扔进ida中查看</p>
-<p><img src="/2024/10/08/Crack-rtf-wp/Crack_rtf1.png" srcset="/img/loading.gif" lazyload alt="picture"></p>
-<p>程序大致内容为输入两个password，如果两个都正确就通过验证。接下来重点就是分析两个password的验证过程。<br>每个strcmp函数上方都对input进行了一定的处理，然后和给定的字符串比较。进入处理函数查看：</p>
-<p><img src="/2024/10/08/Crack-rtf-wp/Crack_rtf2.png" srcset="/img/loading.gif" lazyload alt="picture"></p>
-<p>经过查阅发现加密函数为md5加密，直接用soda解密即可。最后输入两个正确的password后程序生成一个解密的rtf文件，打开即可看到flag.<br>Flag{N0_M0re_Free_Bugs}</p>
+                <h1 id="红帽杯-easyre-wp"><a href="#红帽杯-easyre-wp" class="headerlink" title="红帽杯 easyre wp"></a><center>红帽杯 easyre wp</center></h1><p><em>挺有难度的一道题，记录一下.</em><br>首先第一步，扔进die中，发现有upx加密，解密一下，扔进ida中找到main函数。</p>
+<p>这里有几个函数没识别出来，点击去也看不懂，动调看一下。</p>
+<p>动调的时候发现这个函数中的char类型其实存储的是输入的字符串。发现这个以后后面的函数逻辑都比较清楚了。</p>
+<p><img src="/2024/12/06/%E7%BA%A2%E5%B8%BD%E6%9D%AF-easyre-wp/1.png" srcset="/img/loading.gif" lazyload><br>下面的一个函数猜测是取长度操作，因此第一段加密就是一个简单的xor，解密后得到一串线索：<br><em>Info:The first four chars are <code>flag</code></em></p>
+<p>刚开始看不懂这个有什么用，继续往下做。<br>ok下面有一个函数很明显的base64，并且他加密了十次，推测if中的函数为比较作用，因此直接解密(其实这里是个误导项哈哈~~)<br><img src="/2024/12/06/%E7%BA%A2%E5%B8%BD%E6%9D%AF-easyre-wp/2.png" srcset="/img/loading.gif" lazyload><br>解密后得到一个网站：<br><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-254172.htm">https://bbs.pediy.com/thread-254172.htm</a><br>是看雪的一个blog,本来以为可以直接在blog中找到flag,但后来发现好像并没有，于是仔细看了一下文章的内容,是关于如何误导选手解题的，估计我也被误导了。</p>
+<p>于是回头重新寻找flag,<br>发现base64加密的数据下面还有一串数据<br><img src="/2024/12/06/%E7%BA%A2%E5%B8%BD%E6%9D%AF-easyre-wp/3.png" srcset="/img/loading.gif" lazyload></p>
+<p>查找一下引用，发现了一个新的函数,关键函数我用箭头标出来了：<br><img src="/2024/12/06/%E7%BA%A2%E5%B8%BD%E6%9D%AF-easyre-wp/4.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后就是猜这个函数的逻辑，v1跟v4指向的是同一字符串，他跟str在if中xor后的结果两位为’f’,’g’,结合上面的info,推测全部的xor结果为flag<br>通过这一线索可以反向求出v1，接着根据底下的xor式可以求出最后的结果，编写脚本得：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> base64<br><br>enc = <span class="hljs-string">&#x27;Iodl&gt;Qnb(ocy&#x27;</span> + <span class="hljs-built_in">chr</span>(<span class="hljs-number">127</span>) + <span class="hljs-string">&#x27;y.i&#x27;</span> + <span class="hljs-built_in">chr</span>(<span class="hljs-number">127</span>) + <span class="hljs-string">&#x27;d`3w&#125;wek9&#123;iy=~yL@EC&#x27;</span><br>input1 = <span class="hljs-string">&#x27;&#x27;</span><br><br>str1 = [<span class="hljs-number">0x40</span>, <span class="hljs-number">0x35</span>, <span class="hljs-number">0x20</span>, <span class="hljs-number">0x56</span>, <span class="hljs-number">0x5D</span>, <span class="hljs-number">0x18</span>, <span class="hljs-number">0x22</span>, <span class="hljs-number">0x45</span>, <span class="hljs-number">0x17</span>, <span class="hljs-number">0x2F</span>, <span class="hljs-number">0x24</span>, <span class="hljs-number">0x6E</span>, <span class="hljs-number">0x62</span>, <span class="hljs-number">0x3C</span>, <span class="hljs-number">0x27</span>, <span class="hljs-number">0x54</span>, <span class="hljs-number">0x48</span>, <span class="hljs-number">0x6C</span>, <span class="hljs-number">0x24</span>, <span class="hljs-number">0x6E</span>, <span class="hljs-number">0x72</span>,<br>        <span class="hljs-number">0x3C</span>, <span class="hljs-number">0x32</span>, <span class="hljs-number">0x45</span>, <span class="hljs-number">0x5B</span>]<br>str2 = <span class="hljs-string">&#x27;flag&#x27;</span><br>str3 = <span class="hljs-string">&#x27;&#x27;</span><br>flag = <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(enc)):<br>    input1 += <span class="hljs-built_in">chr</span>(<span class="hljs-built_in">ord</span>(enc[i]) ^ i)<br><span class="hljs-built_in">print</span>(input1)<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(str2)):<br>    str3 += <span class="hljs-built_in">chr</span>(<span class="hljs-built_in">ord</span>(str2[i]) ^ str1[i])<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(str1)):<br>    flag += <span class="hljs-built_in">chr</span>(<span class="hljs-built_in">ord</span>(str3[i % <span class="hljs-number">4</span>]) ^ str1[i])<br><br><span class="hljs-built_in">print</span>(flag)<br></code></pre></td></tr></table></figure>
+<p>得到flag为：flag{Act1ve_Defen5e_Test}</p>
 
                 
               </div>
@@ -299,8 +303,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>CrackRTF_Wp!!!</div>
-      <div>https://vermouth-hub.github.io/2024/10/08/Crack-rtf-wp/</div>
+      <div>红帽杯 easyre wp</div>
+      <div>https://vermouth-hub.github.io/2024/12/06/红帽杯-easyre-wp/</div>
     </div>
     <div class="license-meta">
       
@@ -312,7 +316,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年10月8日</div>
+          <div>2024年12月6日</div>
         </div>
       
       
@@ -347,6 +351,12 @@
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2024/12/05/Crack-rtf-wp/" title="CrackRTF_Wp!!!">
+                        <span class="hidden-mobile">CrackRTF_Wp!!!</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
