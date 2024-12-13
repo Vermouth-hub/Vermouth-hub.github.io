@@ -212,6 +212,46 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2024/12/13/suctf-signin/" target="_self">
+          suctf_signin
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/12/13/suctf-signin/" target="_self">
+        <div>
+          suctf_signin题解挺有意思的一道题目，记录一下首先把程序扔进ida中，找到如下的main函数  进入sub_96a查看，发现是将input存放到arr中，然后再通过变化arr来进一步验证flag接着是下面的gmpz函数，set_str推测为将后面的字符串赋值给前面的字符串。powm函数比较重要，其作用为: 计算 (v6 ^ e) mod v4 的值，并将值存放在第一个参数v6中 仔细想想
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-12-13 22:59" pubdate>
+              2024-12-13
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Reverse/">#Reverse</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2024/12/06/%E7%BA%A2%E5%B8%BD%E6%9D%AF-easyre-wp/" target="_self">
           红帽杯 easyre wp
         </a>

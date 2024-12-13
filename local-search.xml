@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>suctf_signin</title>
+    <link href="/2024/12/13/suctf-signin/"/>
+    <url>/2024/12/13/suctf-signin/</url>
+    
+    <content type="html"><![CDATA[<h1 id="suctf-signin题解"><a href="#suctf-signin题解" class="headerlink" title="suctf_signin题解"></a><center>suctf_signin题解</center></h1><p><em>挺有意思的一道题目，记录一下</em><br>首先把程序扔进ida中，找到如下的main函数</p><p><img src="/2024/12/13/suctf-signin/1.png" alt="main函数"></p><p>进入sub_96a查看，发现是将input存放到arr中，然后再通过变化arr来进一步验证flag<br>接着是下面的gmpz函数，set_str推测为将后面的字符串赋值给前面的字符串。powm函数比较重要，其作用为: 计算 (v6 ^ e) mod v4 的值，并将值存放在第一个参数v6中</p><p>仔细想想，这是不是和rsa加密过程很像？<br>因此直接将大数分解，丢进rsa脚本，得到flag:<br>suctf{Pwn_@_hundred_years}</p><p>脚本如下：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> *<br><span class="hljs-keyword">from</span> gmpy2 <span class="hljs-keyword">import</span> *<br>e = <span class="hljs-number">65537</span><br>q = <span class="hljs-number">282164587459512124844245113950593348271</span><br>p = <span class="hljs-number">366669102002966856876605669837014229419</span><br>n = q * p<br>c = <span class="hljs-number">78510953323073667749065685964447569045476327122134491251061064910992472210485</span><br>phi = (p-<span class="hljs-number">1</span>) * (q-<span class="hljs-number">1</span>)<br>d = invert(e, phi)<br>m = powmod(c, d, n)<br><span class="hljs-built_in">print</span>(m)<br><span class="hljs-comment"># 输出flag</span><br><span class="hljs-built_in">print</span>(long_to_bytes(m))<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Reverse</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>红帽杯 easyre wp</title>
     <link href="/2024/12/06/%E7%BA%A2%E5%B8%BD%E6%9D%AF-easyre-wp/"/>
     <url>/2024/12/06/%E7%BA%A2%E5%B8%BD%E6%9D%AF-easyre-wp/</url>
