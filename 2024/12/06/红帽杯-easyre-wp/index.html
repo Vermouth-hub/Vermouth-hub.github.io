@@ -17,7 +17,7 @@
   
   <meta name="theme-color" content="#2f4154">
   <meta name="author" content="Ve2m0uth">
-  <meta name="keywords" content="reverse,python">
+  <meta name="keywords" content="Reverse, python">
   
     <meta name="description" content="红帽杯 easyre wp挺有难度的一道题，记录一下.首先第一步，扔进die中，发现有upx加密，解密一下，扔进ida中找到main函数。 这里有几个函数没识别出来，点击去也看不懂，动调看一下。 动调的时候发现这个函数中的char类型其实存储的是输入的字符串。发现这个以后后面的函数逻辑都比较清楚了。 下面的一个函数猜测是取长度操作，因此第一段加密就是一个简单的xor，解密后得到一串线索：Info:">
 <meta property="og:type" content="article">
@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://vermouth-hub.github.io/2024/12/06/%E7%BA%A2%E5%B8%BD%E6%9D%AF-easyre-wp/3.png">
 <meta property="og:image" content="https://vermouth-hub.github.io/2024/12/06/%E7%BA%A2%E5%B8%BD%E6%9D%AF-easyre-wp/4.png">
 <meta property="article:published_time" content="2024-12-06T15:08:24.000Z">
-<meta property="article:modified_time" content="2024-12-06T15:31:25.874Z">
+<meta property="article:modified_time" content="2025-01-17T11:41:10.304Z">
 <meta property="article:author" content="Ve2m0uth">
 <meta property="article:tag" content="Reverse">
 <meta name="twitter:card" content="summary_large_image">
@@ -286,6 +286,27 @@
             <hr/>
             <div>
               <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Reverse/" class="category-chain-item">Reverse</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
   
   
     <div class="post-meta">

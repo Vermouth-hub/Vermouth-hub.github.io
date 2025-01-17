@@ -20,8 +20,8 @@
   <meta name="keywords" content="Reverse, python">
   
     <meta property="og:type" content="website">
-<meta property="og:title" content="We1c0me! (⑅˃◡˂⑅)">
-<meta property="og:url" content="https://vermouth-hub.github.io/index.html">
+<meta property="og:title" content="分类 - Reverse">
+<meta property="og:url" content="https://vermouth-hub.github.io/categories/Reverse/index.html">
 <meta property="og:site_name" content="We1c0me! (⑅˃◡˂⑅)">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="Ve2m0uth">
@@ -30,7 +30,7 @@
   
   
   
-  <title>We1c0me! (⑅˃◡˂⑅)</title>
+  <title>分类 - Reverse - We1c0me! (⑅˃◡˂⑅)</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -84,7 +84,7 @@
   <header>
     
 
-<div class="header-inner" style="height: 75vh;">
+<div class="header-inner" style="height: 60vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -174,11 +174,11 @@
 <div id="banner" class="banner" parallax=true
      style="background: url('/img/background.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.6)">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="那天温柔的风还是把我们分开了"></span>
+            <span id="subtitle" data-typed-text="分类 - Reverse"></span>
           
         </div>
 
@@ -205,189 +205,33 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
-
-  <div class="row mx-auto index-card">
+<div class="list-group">
+  <p class="h4">共计 3 篇文章</p>
+  <hr>
+  
+  
     
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/12/13/suctf-signin/" target="_self">
-          suctf_signin
-        </a>
-      </h2>
-
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/12/13/suctf-signin/" target="_self">
-        <div>
-          suctf_signin题解挺有意思的一道题目，记录一下首先把程序扔进ida中，找到如下的main函数  进入sub_96a查看，发现是将input存放到arr中，然后再通过变化arr来进一步验证flag接着是下面的gmpz函数，set_str推测为将后面的字符串赋值给前面的字符串。powm函数比较重要，其作用为: 计算 (v6 ^ e) mod v4 的值，并将值存放在第一个参数v6中 仔细想想
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-12-13 22:59" pubdate>
-              2024-12-13
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
+      <p class="h5">2024</p>
+    
+    <a href="/2024/12/13/suctf-signin/" class="list-group-item list-group-item-action">
+      <time>12-13</time>
+      <div class="list-group-item-title">suctf_signin</div>
+    </a>
   
     
-      <span class="category-chain">
-        
-  <a href="/categories/Reverse/" class="category-chain-item">Reverse</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Reverse/">#Reverse</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/12/06/%E7%BA%A2%E5%B8%BD%E6%9D%AF-easyre-wp/" target="_self">
-          红帽杯 easyre wp
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/12/06/%E7%BA%A2%E5%B8%BD%E6%9D%AF-easyre-wp/" target="_self">
-        <div>
-          红帽杯 easyre wp挺有难度的一道题，记录一下.首先第一步，扔进die中，发现有upx加密，解密一下，扔进ida中找到main函数。 这里有几个函数没识别出来，点击去也看不懂，动调看一下。 动调的时候发现这个函数中的char类型其实存储的是输入的字符串。发现这个以后后面的函数逻辑都比较清楚了。 下面的一个函数猜测是取长度操作，因此第一段加密就是一个简单的xor，解密后得到一串线索：Info:
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-12-06 23:08" pubdate>
-              2024-12-06
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
+    <a href="/2024/12/06/%E7%BA%A2%E5%B8%BD%E6%9D%AF-easyre-wp/" class="list-group-item list-group-item-action">
+      <time>12-06</time>
+      <div class="list-group-item-title">红帽杯 easyre wp</div>
+    </a>
   
     
-      <span class="category-chain">
-        
-  <a href="/categories/Reverse/" class="category-chain-item">Reverse</a>
+    <a href="/2024/12/05/Crack-rtf-wp/" class="list-group-item list-group-item-action">
+      <time>12-05</time>
+      <div class="list-group-item-title">CrackRTF_Wp!!!</div>
+    </a>
   
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Reverse/">#Reverse</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/12/05/Crack-rtf-wp/" target="_self">
-          CrackRTF_Wp!!!
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/12/05/Crack-rtf-wp/" target="_self">
-        <div>
-          今天遇到一道reverse题，挺有意思的，记录一下。
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-12-05 23:19" pubdate>
-              2024-12-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Reverse/" class="category-chain-item">Reverse</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Reverse/">#Reverse</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
+</div>
 
 
 
