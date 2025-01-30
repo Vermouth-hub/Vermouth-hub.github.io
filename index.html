@@ -153,6 +153,156 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://vermouth-hub.github.io/2025/01/30/IgniteMe/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ve2m0uth">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="We1c0me! (⑅˃◡˂⑅)">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/01/30/IgniteMe/" class="post-title-link" itemprop="url">IgniteMe~</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-01-30 20:53:04 / 修改时间：21:04:01" itemprop="dateCreated datePublished" datetime="2025-01-30T20:53:04+08:00">2025-01-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Reverse/" itemprop="url" rel="index"><span itemprop="name">Reverse</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="FlareOn4-IgniteMe"><a href="#FlareOn4-IgniteMe" class="headerlink" title="FlareOn4 IgniteMe"></a><center>FlareOn4 IgniteMe</center></h1><p><em>题目不难，但是有些小细节写出来提醒自己注意</em><br>前面的查壳、扔进ida等常规操作就不说了，直接观察程序。<br><img src="/2025/01/30/IgniteMe/1.png" alt="main"><br>函数不是很复杂，就是写入文件，然后经过sub_4010f0这个函数处理后check，判断正确与否。<br>所以我们主要研究函数sub_4010f0和check函数。sub_4010f0函数中没什么重要信息，check函数倒是很有讲究。<br><img src="/2025/01/30/IgniteMe/2.png" alt="check"><br>很简单的逻辑，需要注意的是这里i是从v1 - 1开始的，v1其实就是输入的长度，res最后也已经给出，所以直接编写脚本求解即可。<br>v4的值是通过rol4函数实现的，学过汇编语言的应该都知道_rol4_用于循环左移，求出v4即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">res = [<span class="number">0x0D</span>, <span class="number">0x26</span>, <span class="number">0x49</span>, <span class="number">0x45</span>, <span class="number">0x2A</span>, <span class="number">0x17</span>, <span class="number">0x78</span>, <span class="number">0x44</span>, <span class="number">0x2B</span>, <span class="number">0x6C</span>, <span class="number">0x5D</span>, <span class="number">0x5E</span>, <span class="number">0x45</span>, <span class="number">0x12</span>, <span class="number">0x2F</span>, <span class="number">0x17</span>, <span class="number">0x2B</span>, <span class="number">0x44</span>, <span class="number">0x6F</span>,</span><br><span class="line">       <span class="number">0x6E</span>, <span class="number">0x56</span>, <span class="number">0x09</span>, <span class="number">0x5F</span>, <span class="number">0x45</span>, <span class="number">0x47</span>, <span class="number">0x73</span>, <span class="number">0x26</span>, <span class="number">0x0A</span>, <span class="number">0x0D</span>, <span class="number">0x13</span>, <span class="number">0x17</span>, <span class="number">0x48</span>, <span class="number">0x42</span>, <span class="number">0x01</span>, <span class="number">0x40</span>, <span class="number">0x4D</span>, <span class="number">0x0C</span>, <span class="number">0x02</span>,</span><br><span class="line">       <span class="number">0x69</span>]</span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line">n = <span class="number">0x380004</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(res) - <span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">    n = (n ^ res[i]) &amp; <span class="number">0xff</span></span><br><span class="line">    flag += <span class="built_in">chr</span>(n)</span><br><span class="line"><span class="built_in">print</span>(flag[::-<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+<p>得到flag：<br><a href="mailto:&#82;&#95;&#121;&#48;&#117;&#x5f;&#x48;&#x30;&#x74;&#x5f;&#x33;&#x6e;&#48;&#117;&#103;&#72;&#x5f;&#x74;&#48;&#x5f;&#49;&#103;&#110;&#49;&#116;&#51;&#x40;&#x66;&#108;&#97;&#114;&#x65;&#45;&#111;&#x6e;&#x2e;&#x63;&#x6f;&#x6d;">&#82;&#95;&#121;&#48;&#117;&#x5f;&#x48;&#x30;&#x74;&#x5f;&#x33;&#x6e;&#48;&#117;&#103;&#72;&#x5f;&#x74;&#48;&#x5f;&#49;&#103;&#110;&#49;&#116;&#51;&#x40;&#x66;&#108;&#97;&#114;&#x65;&#45;&#111;&#x6e;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://vermouth-hub.github.io/2025/01/17/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Ve2m0uth">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="We1c0me! (⑅˃◡˂⑅)">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/01/17/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" class="post-title-link" itemprop="url">浅谈滑动窗口算法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-01-17 20:48:09" itemprop="dateCreated datePublished" datetime="2025-01-17T20:48:09+08:00">2025-01-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-01-19 16:34:53" itemprop="dateModified" datetime="2025-01-19T16:34:53+08:00">2025-01-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><em><center> 从今天开始进行leetcode刷题计划，希望自己能够坚持下来，获得蜕变</center></em></p>
+<p><em><center> Algorithm1 浅谈滑动窗口算法</center></em></p>
+<h3 id="1-什么是滑动窗口算法"><a href="#1-什么是滑动窗口算法" class="headerlink" title="1.什么是滑动窗口算法"></a>1.什么是滑动窗口算法</h3><p>滑动窗口，顾名思义，是利用一个类似于窗口的数据结构，在数组或字符串上移动，从而在数组或字符串上执行某种操作。滑动窗口算法的思路是，将窗口内的元素进行某种操作，然后移动窗口，直到遍历完整个数组或字符串。滑动窗口算法的时间复杂度通常为O(n)，其中n是数组或字符串的长度。<br>滑动窗口算法通常适用于解决在列表中对连续字串的处理问题。</p>
+<h3 id="2-滑动窗口的例题"><a href="#2-滑动窗口的例题" class="headerlink" title="2.滑动窗口的例题"></a>2.滑动窗口的例题</h3><p>参考leetcode上某大神的<a target="_blank" rel="noopener" href="https://leetcode.cn/circle/discuss/0viNMK/">题单</a><br>&lt;example1&gt;<br><img src="/2025/01/17/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/example1.png" alt="例题1"></p>
+<p>解答代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">maxVowels</span>(<span class="params">self, s: <span class="built_in">str</span>, k: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        hashSet = <span class="built_in">set</span>(<span class="string">&#x27;aeiou&#x27;</span>)</span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> s[:k]:</span><br><span class="line">            count += <span class="number">1</span> <span class="keyword">if</span> c <span class="keyword">in</span> hashSet <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        ans = count</span><br><span class="line">        <span class="keyword">for</span> in_, out <span class="keyword">in</span> <span class="built_in">zip</span>(s[k:], s):</span><br><span class="line">            <span class="comment"># zip函数将s[k:]和s进行配对，返回一个迭代器，每次迭代返回一个元组，元组的第一个元素是s[k:]中的元素，第二个元素是s中的元素</span></span><br><span class="line">            count += (in_ <span class="keyword">in</span> hashSet) - (out <span class="keyword">in</span> hashSet)</span><br><span class="line">            ans = count <span class="keyword">if</span> count &gt; ans <span class="keyword">else</span> ans</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+<p>只有第一个窗口需要计算元音字母个数，其他的窗口可由上一个窗口的元音字母个数计算得到<br>count2 &#x3D; count1 + (s[left + k] in hashSet) - (s[left] in hashSet)out in hashSet</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://vermouth-hub.github.io/2024/12/13/suctf-signin/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -459,20 +609,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
