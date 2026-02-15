@@ -3,7 +3,7 @@ title: 'Study journey in Luogu'
 slug: 'luogu-learn-post'
 description: 'some record for the travel in luogu'
 pubDate: 'Feb 14 2026'
-tags: ["luogu", "algorithm"]
+tags: ["luogu"]
 coverImage: './image1.jpg'
 ---
 

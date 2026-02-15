@@ -4,29 +4,58 @@ import FormattedDate from './FormattedDate.astro';
 import type { CollectionEntry } from 'astro:content';
 
 type BlogPost = CollectionEntry<'blog'>;
-const { post }: Record<string, any> | { post: BlogPost } = Astro.props
+interface Props {
+  post: BlogPost;
+}
+const { post }: Props = Astro.props;    
+
+const coverImage = post.data.coverImage;
 ---
-<div class='flex flex-col sm:flex-row gap-2 sm:items-center  border-b py-2 mb-1 capitalize dark:border-b-zinc-700'>        
-  <div class='text-zinc-700 text-sm w-24 dark:text-zinc-300 shrink-0'>
-    <FormattedDate date={post.data.pubDate} />
-  </div>
-  <h3 class='font-medium grow'>
-    <a href={`/${post.id}/`}>
-      {post.data.title}
-    </a>
-  </h3>
-  <div class='flex gap-2 shrink-0'>
-    {
-      (post.data.tags || [] )?.map((tag: string) => (
-        <a
-          class='border border-zinc-300 dark:border-zinc-700 rounded-2xl
-          text-sm text-zinc-700 dark:text-zinc-300 no-underline px-2 py-0.5
-          transition-all duration-700
-          hover:border-zinc-700 dark:hover:border-zinc-300'
-          href={`/tags/${slugify(tag)}`}>
-          {tag}
-        </a>
-      ))
-    }
+
+<div class='group relative flex flex-col justify-center min-h-[160px] w-full rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden mb-4 transition-all hover:shadow-lg bg-white dark:bg-zinc-950'>
+  
+  {coverImage && (
+    <div class="absolute inset-0 z-0 pointer-events-none">
+      <img 
+        src={typeof coverImage === 'string' ? coverImage : coverImage.src} 
+        alt=""
+        class="absolute right-0 h-full w-full sm:w-3/4 object-cover object-center opacity-80 dark:opacity-60"
+        style="mask-image: linear-gradient(to right, transparent 0%, black 60%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 60%);"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-white from-30% via-white/90 via-50% to-transparent dark:from-zinc-950 dark:from-30% dark:via-zinc-950/90 dark:via-50%"></div>
+    </div>
+  )}
+
+  <div class='relative z-10 p-6 flex flex-col gap-2 w-full sm:w-2/3'>
+    <div class='text-zinc-500 text-xs dark:text-zinc-400'>
+      <FormattedDate date={post.data.pubDate} />
+    </div>
+
+    <h3 class='text-xl font-bold text-zinc-800 dark:text-zinc-100 group-hover:text-blue-600 transition-colors'>
+      <a href={`/${post.id}/`} class="after:absolute after:inset-0 after:z-0">
+        {post.data.title}
+      </a>
+    </h3>
+
+    {post.data.description && (
+      <p class="text-zinc-600 dark:text-zinc-400 text-sm italic line-clamp-1">
+        {post.data.description}
+      </p>
+    )}
+
+    <div class='flex flex-wrap gap-2 mt-2 relative z-20'>
+      {
+        (post.data.tags || []).map((tag: string) => (
+          <a
+            href={`/tags/${slugify(tag)}`}
+            class='bg-zinc-100/80 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 rounded-full
+            text-xs text-zinc-600 dark:text-zinc-300 px-3 py-1 transition-all
+            hover:bg-zinc-200 dark:hover:bg-zinc-700 hover:border-zinc-400 dark:hover:border-zinc-500'
+          >
+            {tag}
+          </a>
+        ))
+      }
+    </div>
   </div>
 </div>
