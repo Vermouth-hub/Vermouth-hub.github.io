@@ -5,10 +5,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostsByYear from '../../components/PostsByYear.astro';
 
 type BlogPost = CollectionEntry<'blog'>;
-const title = 'All posts'
+const title = 'Notes and Posts'
 // const description = 'Articles, guides, tutorials about front-end development.'
-const description = 'Here are some articles, guides, which effect me a lot in my study journey.'
-const description2 = ' I hope they can help you too. Enjoy reading!'
+const description = '算法、工程、科研与安全学习记录。'
+const description2 = '我会把踩过的坑、读过的材料和阶段性理解沉淀在这里。'
 const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
@@ -17,7 +17,8 @@ const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b
 	description={description}
 >
   <div class='container'>
-    <div class="mb-10">
+    <div class="mb-10" data-reveal>
+      <p class="section-kicker mb-4">writing</p>
       <h1 class="text-3xl font-bold mb-2">{title}</h1>
       <p class="text-zinc-700 dark:text-zinc-300 text-lg">{description}</p>
       <p class="text-zinc-700 dark:text-zinc-300 text-lg">{description2}</p>

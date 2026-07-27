@@ -14,19 +14,47 @@ const { title, description, image } = Astro.props;
 		<BaseHead title={title} description={description} image={image} />
 	</head>
 	<body
-		class="bg-white dark:bg-zinc-900 dark:text-zinc-100 pt-16 sm:pt-0"
+		class="bg-white text-zinc-950 dark:bg-zinc-950 dark:text-zinc-100 pt-16 sm:pt-0"
 	>
+		<div class="site-ambient" aria-hidden="true">
+			<div class="site-grid"></div>
+			<div class="cursor-light"></div>
+		</div>
 		<Header/>
-		<div class='py-8 min-h-[calc(100vh-160px)]'>
+		<div class='relative z-10 py-8 min-h-[calc(100vh-160px)]'>
 			<slot />
 		</div>
 		<Footer />
+		<script is:inline>
+			const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			if (!reduceMotion) {
+				const cursorLight = document.querySelector('.cursor-light');
+				window.addEventListener('pointermove', (event) => {
+					if (!cursorLight) return;
+					cursorLight.style.setProperty('--x', `${event.clientX}px`);
+					cursorLight.style.setProperty('--y', `${event.clientY}px`);
+				}, { passive: true });
+
+				const revealItems = document.querySelectorAll('[data-reveal]');
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('is-visible');
+							observer.unobserve(entry.target);
+						}
+					});
+				}, { threshold: 0.16 });
+				revealItems.forEach((item) => observer.observe(item));
+			} else {
+				document.querySelectorAll('[data-reveal]').forEach((item) => item.classList.add('is-visible'));
+			}
+		</script>
 		<!-- Google tag (gtag.js) -->
     {
       GTAG_MEASUREMENT_ID &&
       <>
-        <script type='text/partytown' async src={'https://www.googletagmanager.com/gtag/js?id=' + GTAG_MEASUREMENT_ID}></script>
-        <script type='text/partytown' define:vars={{ GTAG_MEASUREMENT_ID }}>
+        <script is:inline type='text/partytown' async src={'https://www.googletagmanager.com/gtag/js?id=' + GTAG_MEASUREMENT_ID}></script>
+        <script is:inline type='text/partytown' define:vars={{ GTAG_MEASUREMENT_ID }}>
           window.dataLayer = window.dataLayer || [];
           function gtag() {
             dataLayer.push(arguments);

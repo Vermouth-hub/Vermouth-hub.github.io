@@ -2,83 +2,99 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Ava from '@src/assets/img/ava.jpg';
-import Prose from '../components/Prose.astro';
-
+import { profile } from '../data/profile';
+import { SITE_DESCRIPTION } from '../consts';
 ---
 
 <BaseLayout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
+	title={`${profile.handle} - About`}
+	description={SITE_DESCRIPTION}
 >
   <div class='container'>
-		<main class='prose text-lg dark:prose-invert'>
-      <article>
-        <div class='w-full md:flex md:items-center gap-16 mb-10'>
-          <div class="text-pretty leading-9">
-            <h1 class="text-4xl font-bold mb-4">Hi (๑• . •๑), Ve2m0uth Here! </h1>
-            <Prose>
-              <div class="text-lg">
-                <p>I am currently a Computer Science and Technology student at Anhui University (AHU), with a strong curiosity about advanced technologies and how they shape the world. If you find my blog helpful, feel free to give it a star on <a href="https://github.com/Vermouth-hub/Vermouth-hub.github.io" target="_blank" rel="nofollow noopener">GitHub</a>.</p>
-                <p>I enjoy learning new things, so if you'd like to discuss ideas or tackle interesting problems together, feel free to reach out via email at <a href="mailto:zychen@stu.ahu.edu.cn" target="_blank" rel="nofollow noopener">zychen@stu.ahu.edu.cn</a>. I’d be glad to hear from you.</p>  
-              </div>
-            </Prose>
-          </div>
-          <Image src={Ava} alt="Muhammad Syakirurohman" width={300}  class="rounded-3xl rotate-3 mx-4 md:mx-0"/>
-        </div>     
+    <section class='about-hero grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-center mb-12' data-reveal>
+      <div class='about-photo-panel'>
+        <Image src={Ava} alt='Ve2m0uth avatar' width={320} class='about-photo'/>
         <div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-            viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-            adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-            et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-            vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-            sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-          </p>
-
-          <p>
-            Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-            tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-            blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-            porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-            massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-            Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-            bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-            massa massa ultricies mi.
-          </p>
-
-          <p>
-            Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-            suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-            nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-            turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-            dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-            semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-            vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-            facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-            vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-            urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-          </p>
-
-          <p>
-            Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-            viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-            scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-            gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-            pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-            blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-            cursus metus aliquam eleifend mi.
-          </p>
-
-          <p>
-            Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-            nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-            tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-            ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-            proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-          </p>
+          <p class='text-sm uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400'>{profile.school}</p>
+          <h1 class='mt-2 text-4xl font-black'>{profile.name}</h1>
+          <p class='mt-2 text-zinc-600 dark:text-zinc-300'>{profile.handle} / {profile.major}</p>
         </div>
-        </article>
-    </main>
+      </div>
+      <div>
+        <p class='section-kicker'>about me</p>
+        <h2 class='text-3xl font-black leading-tight md:text-5xl'>在信息安全与软件工程之间，寻找能落地的研究问题。</h2>
+        <p class='mt-6 text-lg leading-8 text-zinc-700 dark:text-zinc-300'>{profile.intro}</p>
+        <div class='mt-7 flex flex-wrap gap-3'>
+          <a class='action-link primary' href={`mailto:${profile.email}`}>Email me</a>
+          <a class='action-link' href={profile.github} target='_blank' rel='nofollow noopener'>GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <section class='metric-grid mb-12' data-reveal>
+      {profile.highlights.map((item) => (
+        <div class='metric-card'>
+          <span>{item.label}</span>
+          <strong>{item.value}</strong>
+        </div>
+      ))}
+    </section>
+
+    <div class='grid gap-10 lg:grid-cols-[0.9fr_1.1fr]'>
+      <section class='space-y-8'>
+        <div class='glass-panel' data-reveal>
+          <p class='section-kicker'>education</p>
+          <h2 class='text-2xl font-bold'>{profile.school}</h2>
+          <p class='mt-2 text-zinc-600 dark:text-zinc-300'>{profile.college} / {profile.major}</p>
+          <p class='mt-4 text-sm text-zinc-500 dark:text-zinc-400'>2023.09 - 至今</p>
+        </div>
+
+        <div class='glass-panel' data-reveal>
+          <p class='section-kicker'>core courses</p>
+          <div class='chip-cloud'>
+            {profile.courses.map((course) => <span>{course}</span>)}
+          </div>
+        </div>
+
+        <div class='glass-panel' data-reveal>
+          <p class='section-kicker'>skills</p>
+          <div class='chip-cloud'>
+            {profile.skills.map((skill) => <span>{skill}</span>)}
+          </div>
+        </div>
+
+        <div class='glass-panel' data-reveal>
+          <p class='section-kicker'>awards</p>
+          <ul class='award-list'>
+            {profile.awards.map((award) => <li>{award}</li>)}
+          </ul>
+        </div>
+      </section>
+
+      <section data-reveal>
+        <p class='section-kicker'>research and competitions</p>
+        <h2 class='mb-6 text-2xl font-bold'>Selected Experience</h2>
+        <div class='timeline'>
+          {profile.experiences.map((item) => (
+            <article class='timeline-item'>
+              <div class='timeline-dot'></div>
+              <div class='timeline-card'>
+                <div class='flex flex-wrap items-start justify-between gap-3'>
+                  <div>
+                    <h3 class='text-xl font-bold'>{item.title}</h3>
+                    <p class='mt-1 text-sm text-zinc-500 dark:text-zinc-400'>{item.role}</p>
+                  </div>
+                  <span class='time-pill'>{item.time}</span>
+                </div>
+                <p class='mt-4 leading-7 text-zinc-700 dark:text-zinc-300'>{item.description}</p>
+                <ul class='mt-4 space-y-2 text-sm text-zinc-600 dark:text-zinc-300'>
+                  {item.outcomes.map((outcome) => <li>{outcome}</li>)}
+                </ul>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </div>
   </div>
 </BaseLayout>

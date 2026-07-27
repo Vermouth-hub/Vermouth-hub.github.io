@@ -12,7 +12,7 @@ const { post }: Props = Astro.props;
 const coverImage = post.data.coverImage;
 ---
 
-<div class='group relative flex flex-col justify-center min-h-[160px] w-full rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden mb-4 transition-all hover:shadow-lg bg-white dark:bg-zinc-950'>
+<div class='group relative flex flex-col justify-center min-h-[160px] w-full rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden mb-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl bg-white/80 dark:bg-zinc-950/75 backdrop-blur' data-reveal>
   
   {coverImage && (
     <div class="absolute inset-0 z-0 pointer-events-none">
@@ -31,7 +31,7 @@ const coverImage = post.data.coverImage;
       <FormattedDate date={post.data.pubDate} />
     </div>
 
-    <h3 class='text-xl font-bold text-zinc-800 dark:text-zinc-100 group-hover:text-blue-600 transition-colors'>
+    <h3 class='text-xl font-bold text-zinc-800 dark:text-zinc-100 group-hover:text-teal-700 dark:group-hover:text-cyan-300 transition-colors'>
       <a href={`/${post.id}/`} class="after:absolute after:inset-0 after:z-0">
         {post.data.title}
       </a>

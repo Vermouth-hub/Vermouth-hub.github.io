@@ -6,9 +6,10 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import Ava from '@src/assets/img/ava.jpg';
 import Prose from '../components/Prose.astro';
-import { projects } from './projects/projects';
+import { projects } from '../data/projects';
 import ProjectList from '../components/ProjectList.astro'
 import PostItem from '../components/PostItem.astro';
+import { profile } from '../data/profile';
 
 type BlogPost = CollectionEntry<'blog'>;
 
@@ -19,21 +20,59 @@ const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b
 <!-- <BaseLayout title={SITE_TITLE + ' - ' + SITE_TAGLINE} description={SITE_DESCRIPTION}> -->
 <BaseLayout title={SITE_TITLE + SITE_TAGLINE} description={SITE_DESCRIPTION}>
 	<div class='container'>
-		<div class='w-full md:flex md:items-center gap-16 mb-10'>
-      <div class="text-pretty leading-9">
-        <h1 class="text-4xl font-bold mb-4">Hi (๑• . •๑), Ve2m0uth Here! </h1>
+		<section class='hero-shell grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center mb-14' data-reveal>
+      <div class="text-pretty leading-8">
+        <div class="eyebrow mb-5">AHU information security undergraduate</div>
+        <h1 class="hero-title mb-5">
+          {profile.handle}
+          <span>builds research systems for bugs, security and code.</span>
+        </h1>
         <Prose>
           <div class="text-lg">
-            <p>I am currently a Computer Science and Technology student at Anhui University (AHU), with a strong curiosity about advanced technologies and how they shape the world. If you find my blog helpful, feel free to give it a star on <a href="https://github.com/Vermouth-hub/Vermouth-hub.github.io" target="_blank" rel="nofollow noopener">GitHub</a>.</p>
-            <p>I enjoy learning new things, so if you'd like to discuss ideas or tackle interesting problems together, feel free to reach out via email at <a href="mailto:zychen@stu.ahu.edu.cn" target="_blank" rel="nofollow noopener">zychen@stu.ahu.edu.cn</a>. I’d be glad to hear from you.</p>  
+            <p>{profile.intro}</p>
+            <p>这个博客会持续记录我的科研进展、算法学习、工程实践与竞赛复盘。如果内容对你有帮助，欢迎在 <a href={profile.repo} target="_blank" rel="nofollow noopener">GitHub</a> 上看看源码，也可以通过 <a href={`mailto:${profile.email}`} target="_blank" rel="nofollow noopener">{profile.email}</a> 交流。</p>
           </div>
         </Prose>
+        <div class="mt-7 flex flex-wrap gap-3">
+          <a class="action-link primary" href="/about/">Read profile</a>
+          <a class="action-link" href="/projects/">Explore projects</a>
+        </div>
       </div>
-      <Image src={Ava} alt="Muhammad Syakirurohman" width={300} loading="eager" class="rounded-3xl rotate-3 mx-4 md:mx-0"/>
-		</div>
+      <div class="hero-portrait-wrap">
+        <div class="hero-orbit" aria-hidden="true"></div>
+        <Image src={Ava} alt="Ve2m0uth avatar" width={360} loading="eager" class="hero-portrait"/>
+        <div class="hero-note">
+          <span>Research focus</span>
+          <strong>LLM + MCTS for Android bug reproduction</strong>
+        </div>
+      </div>
+		</section>
+    <section class="metric-grid mb-14" data-reveal>
+      {
+        profile.highlights.map((item) => (
+          <div class="metric-card">
+            <span>{item.label}</span>
+            <strong>{item.value}</strong>
+          </div>
+        ))
+      }
+    </section>
 		<main>
-      <div class='mt-6 mb-12'>
-        <div class="flex justify-between gap-2 border-b mb-1 dark:border-b-zinc-700">
+      <section class="mb-14" data-reveal>
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+          <div>
+            <p class="section-kicker">toolbox</p>
+            <h2 class="text-2xl font-bold">Skills I keep sharpening</h2>
+          </div>
+        </div>
+        <div class="skill-marquee">
+          <div class="skill-track">
+            {[...profile.skills, ...profile.skills].map((skill) => <span>{skill}</span>)}
+          </div>
+        </div>
+      </section>
+      <section class='mt-6 mb-12' data-reveal>
+        <div class="flex justify-between gap-2 border-b mb-4 dark:border-b-zinc-700">
           <h2 class="text-lg font-bold mb-3">Recent Posts</h2>
           <a href="/posts/" class="inline-block py-2 underline dark:prose-invert">All posts &raquo;</a>
         </div>
@@ -46,14 +85,14 @@ const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b
         </div>
         <div class="text-right">
         </div>
-      </div>
-      <div>
-        <div class="flex justify-between gap-2 mb-1">
+      </section>
+      <section data-reveal>
+        <div class="flex justify-between gap-2 mb-4">
           <h2 class="text-lg font-bold mb-3">My Projects</h2>
           <a href="/projects/" class="inline-block py-2 underline dark:prose-invert">All projects &raquo;</a>
         </div>
         <ProjectList projects={top6Projects}/>
-      </div>
+      </section>
 		</main>
 	</div>
 </BaseLayout>
