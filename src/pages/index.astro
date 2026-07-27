@@ -28,7 +28,7 @@ const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b
         </h1>
         <div class="hero-copy">
           <p>{profile.intro}</p>
-          <p>{profile.shortIntro}</p>
+          <!-- <p>{profile.shortIntro}</p> -->
         </div>
         <div class="mt-6 flex flex-wrap gap-3">
           <a class="action-link primary" href="/about/">About me</a>
@@ -40,7 +40,7 @@ const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b
         <Image src={Ava} alt="Ve2m0uth avatar" width={300} loading="eager" class="hero-portrait"/>
         <div class="hero-note">
           <span>Focus</span>
-          <strong>LLM + MCTS</strong>
+          <strong>LLM、Security</strong>
         </div>
       </div>
 		</section>
