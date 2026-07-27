@@ -9,7 +9,9 @@ export const profile = {
   major: '信息安全',
   direction: '信息安全 / 软件工程 / 智能化缺陷复现',
   intro:
-    '安徽大学信息安全专业本科生，关注大语言模型、软件缺陷复现、Android 自动化测试与安全攻防。当前以 TreeMind 为主线，探索 LLM 与蒙特卡洛搜索树在 Android 崩溃报告复现中的结合方式。',
+    '安徽大学信息安全专业本科生，关注软件缺陷复现、Android 自动化测试与安全攻防。',
+  shortIntro:
+    '目前围绕 TreeMind 探索 LLM 与蒙特卡洛搜索树在 Android 崩溃报告复现中的结合方式，也会在这里记录算法、工程与科研学习。',
   highlights: [
     { label: '专业排名', value: '8 / 100' },
     { label: 'GPA', value: '4.14 / 5.00' },

@@ -5,7 +5,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import Ava from '@src/assets/img/ava.jpg';
-import Prose from '../components/Prose.astro';
 import { projects } from '../data/projects';
 import ProjectList from '../components/ProjectList.astro'
 import PostItem from '../components/PostItem.astro';
@@ -20,34 +19,32 @@ const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b
 <!-- <BaseLayout title={SITE_TITLE + ' - ' + SITE_TAGLINE} description={SITE_DESCRIPTION}> -->
 <BaseLayout title={SITE_TITLE + SITE_TAGLINE} description={SITE_DESCRIPTION}>
 	<div class='container'>
-		<section class='hero-shell grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center mb-14' data-reveal>
-      <div class="text-pretty leading-8">
-        <div class="eyebrow mb-5">AHU information security undergraduate</div>
-        <h1 class="hero-title mb-5">
+		<section class='hero-shell compact-hero grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-center mb-10' data-reveal>
+      <div class="text-pretty">
+        <div class="eyebrow mb-4">AHU / Information Security</div>
+        <h1 class="hero-title mb-4">
           {profile.handle}
-          <span>builds research systems for bugs, security and code.</span>
+          <span>{profile.direction}</span>
         </h1>
-        <Prose>
-          <div class="text-lg">
-            <p>{profile.intro}</p>
-            <p>这个博客会持续记录我的科研进展、算法学习、工程实践与竞赛复盘。如果内容对你有帮助，欢迎在 <a href={profile.repo} target="_blank" rel="nofollow noopener">GitHub</a> 上看看源码，也可以通过 <a href={`mailto:${profile.email}`} target="_blank" rel="nofollow noopener">{profile.email}</a> 交流。</p>
-          </div>
-        </Prose>
-        <div class="mt-7 flex flex-wrap gap-3">
-          <a class="action-link primary" href="/about/">Read profile</a>
-          <a class="action-link" href="/projects/">Explore projects</a>
+        <div class="hero-copy">
+          <p>{profile.intro}</p>
+          <p>{profile.shortIntro}</p>
+        </div>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a class="action-link primary" href="/about/">About me</a>
+          <a class="action-link" href="/projects/">Projects</a>
         </div>
       </div>
       <div class="hero-portrait-wrap">
         <div class="hero-orbit" aria-hidden="true"></div>
-        <Image src={Ava} alt="Ve2m0uth avatar" width={360} loading="eager" class="hero-portrait"/>
+        <Image src={Ava} alt="Ve2m0uth avatar" width={300} loading="eager" class="hero-portrait"/>
         <div class="hero-note">
-          <span>Research focus</span>
-          <strong>LLM + MCTS for Android bug reproduction</strong>
+          <span>Focus</span>
+          <strong>LLM + MCTS</strong>
         </div>
       </div>
 		</section>
-    <section class="metric-grid mb-14" data-reveal>
+    <section class="metric-grid compact-metrics mb-12" data-reveal>
       {
         profile.highlights.map((item) => (
           <div class="metric-card">
