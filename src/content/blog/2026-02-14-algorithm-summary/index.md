@@ -14,7 +14,7 @@ coverImage: './image1.jpg'
 
 二分查找的基本原理如下图中所示。
 
-<img src="./image/erfen1.png" width="800">
+![二分查找示意图](./image/erfen1.png)
 
 其中二分查找的实现方法分为多种，较为简单的一种是使用双闭区间，我们定义 target属于一个双闭区间 ，**也就是[left, right] **。
 
@@ -158,4 +158,3 @@ public:
 
 
 ### 链表
-
