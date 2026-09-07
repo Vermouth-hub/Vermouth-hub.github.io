@@ -1,5 +1,5 @@
 export const profile = {
-  name: '陈郑雨',
+  name: 've2m0uth',
   handle: 'Ve2m0uth',
   email: 'zychen@stu.ahu.edu.cn',
   github: 'https://github.com/Vermouth-hub',
