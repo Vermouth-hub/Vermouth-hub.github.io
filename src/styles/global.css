@@ -65,7 +65,7 @@
 	pre,
 	code {
 		font-family: var(--font-code);
-		font-size: 0.875rem;
+		font-size: 0.95rem;
 		font-variant-ligatures: contextual;
 	}
 
@@ -122,14 +122,14 @@
 		align-items: center;
 		gap: 0.7rem;
 		color: var(--ink);
-		font-size: 0.95rem;
+		font-size: 1.05rem;
 		font-weight: 750;
 		text-decoration: none;
 	}
 
 	.site-brand img {
-		width: 2rem;
-		height: 2rem;
+		width: 2.25rem;
+		height: 2.25rem;
 		border: 1px solid var(--line);
 		border-radius: 50%;
 		transition: border-color 180ms ease, transform 180ms ease;
@@ -151,7 +151,8 @@
 		position: relative;
 		padding: 0.4rem 0;
 		color: var(--muted);
-		font-size: 0.86rem;
+		font-size: 0.98rem;
+		font-weight: 620;
 		text-decoration: none;
 		transition: color 180ms ease;
 	}
@@ -187,12 +188,17 @@
 
 	.icon-button {
 		display: grid;
-		width: 2.4rem;
-		height: 2.4rem;
+		width: 2.65rem;
+		height: 2.65rem;
 		place-items: center;
 		border-radius: var(--radius-control);
 		color: var(--muted);
 		transition: color 180ms ease, background 180ms ease;
+	}
+
+	.icon-button :where(svg, img) {
+		width: 1.35rem;
+		height: 1.35rem;
 	}
 
 	.icon-button:hover {
@@ -666,12 +672,12 @@
 	.tag-chip {
 		display: inline-flex;
 		align-items: center;
-		min-height: 1.7rem;
+		min-height: 1.95rem;
 		border: 1px solid var(--line);
 		border-radius: var(--radius-chip);
-		padding: 0.2rem 0.5rem;
+		padding: 0.24rem 0.62rem;
 		color: var(--muted);
-		font-size: 0.74rem;
+		font-size: 0.86rem;
 		line-height: 1.1;
 		text-decoration: none;
 		transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
@@ -786,6 +792,7 @@
 		--tw-prose-pre-bg: #18211d;
 		--tw-prose-th-borders: var(--line);
 		--tw-prose-td-borders: var(--line);
+		font-size: 1.06rem;
 		line-height: 1.85;
 	}
 
@@ -848,7 +855,9 @@
 		background: transparent;
 		padding: 0;
 		color: inherit;
+		font-size: 0.96rem;
 		font-weight: 400;
+		line-height: 1.72;
 	}
 
 	.prose :where(pre code span):not(:where([class~='not-prose'] *)) {
