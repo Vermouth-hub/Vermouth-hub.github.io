@@ -12,7 +12,7 @@ const { post }: Props = Astro.props;
 const coverImage = post.data.coverImage;
 ---
 
-<article class='post-item group' data-reveal>
+<article class='post-item group' data-reveal data-tilt>
   <div class='post-content flex flex-col gap-2'>
     <div class='text-zinc-500 text-xs dark:text-zinc-400'>
       <FormattedDate date={post.data.pubDate} />

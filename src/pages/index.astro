@@ -1,95 +1,54 @@
 ---
 import { SITE_TITLE, SITE_TAGLINE, SITE_DESCRIPTION } from '../consts';
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { Image } from 'astro:assets';
-import type { CollectionEntry } from 'astro:content';
-import Ava from '@src/assets/img/ava.jpg';
+import ProjectList from '../components/ProjectList.astro';
 import { projects } from '../data/projects';
-import ProjectList from '../components/ProjectList.astro'
-import PostItem from '../components/PostItem.astro';
 import { profile } from '../data/profile';
-
-type BlogPost = CollectionEntry<'blog'>;
-
-const top6Projects = projects.slice(0, 6);
-const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 5);
 ---
 
-<!-- <BaseLayout title={SITE_TITLE + ' - ' + SITE_TAGLINE} description={SITE_DESCRIPTION}> -->
 <BaseLayout title={SITE_TITLE + SITE_TAGLINE} description={SITE_DESCRIPTION}>
 	<div class='container'>
-		<section class='hero-shell compact-hero grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-center mb-10' data-reveal>
-      <div class="text-pretty">
-        <div class="eyebrow mb-4">AHU / Information Security</div>
-        <h1 class="hero-title mb-4">
-          {profile.handle}
-          <span>{profile.direction}</span>
-        </h1>
-        <div class="hero-copy">
-          <p>{profile.intro}</p>
-          <!-- <p>{profile.shortIntro}</p> -->
-        </div>
-        <div class="mt-6 flex flex-wrap gap-3">
-          <a class="action-link primary" href="/about/">About me</a>
-          <a class="action-link" href="/projects/">Projects</a>
-        </div>
-      </div>
-      <div class="hero-portrait-wrap">
-        <div class="hero-orbit" aria-hidden="true"></div>
-        <Image src={Ava} alt="Ve2m0uth avatar" width={300} loading="eager" class="hero-portrait"/>
-        <div class="hero-note">
-          <span>Focus</span>
-          <strong>LLM、Security</strong>
-        </div>
-      </div>
+		<section class='hero-shell research-hero grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center mb-14' data-hero>
+			<div class='text-pretty'>
+				<p class='eyebrow'>Software Engineering / LLM Agents</p>
+				<h1 class='hero-title mb-5'>
+					<span class='hero-name'>{profile.name}</span>
+					<span class='hero-direction'>{profile.direction}</span>
+				</h1>
+				<div class='hero-copy'>
+					<p>{profile.intro}</p>
+					<p>{profile.writing}</p>
+				</div>
+				<div class='mt-7 flex flex-wrap gap-3'>
+					<a class='action-link primary' data-magnetic href={profile.arxiv} target='_blank' rel='noopener noreferrer'>TreeMind Paper</a>
+					<a class='action-link' data-magnetic href='/algorithm-summary/'>Algorithm Notes</a>
+				</div>
+			</div>
+
+			<aside class='research-brief'>
+				<p class='section-kicker'>Current Research</p>
+				<h2>TreeMind</h2>
+				<p>{profile.research}</p>
+				<div class='research-meta'>
+					<span>Android</span>
+					<span>LLM</span>
+					<span>MCTS</span>
+				</div>
+				<a class='research-link' href={profile.arxiv} target='_blank' rel='noopener noreferrer'>Read on arXiv <span aria-hidden='true'>↗</span></a>
+			</aside>
 		</section>
-    <section class="metric-grid compact-metrics mb-12" data-reveal>
-      {
-        profile.highlights.map((item) => (
-          <div class="metric-card">
-            <span>{item.label}</span>
-            <strong>{item.value}</strong>
-          </div>
-        ))
-      }
-    </section>
+
 		<main>
-      <section class="mb-14" data-reveal>
-        <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
-          <div>
-            <p class="section-kicker">Toolbox</p>
-            <h2 class="text-2xl font-bold">Skills I keep sharpening</h2>
-          </div>
-        </div>
-        <div class="skill-marquee">
-          <div class="skill-track">
-            {profile.skills.map((skill) => <span>{skill}</span>)}
-          </div>
-        </div>
-      </section>
-      <section class='mt-6 mb-12' data-reveal>
-        <div class="flex justify-between gap-2 border-b mb-4 dark:border-b-zinc-700">
-          <h2 class="text-lg font-bold mb-3">Recent Posts</h2>
-          <a href="/posts/" class="inline-block py-2 underline dark:prose-invert">All posts &raquo;</a>
-        </div>
-        <div>
-          {
-            posts.map((post: BlogPost) => (
-              <PostItem post={post} />
-            ))
-          }      
-        </div>
-        <div class="text-right">
-        </div>
-      </section>
-      <section data-reveal>
-        <div class="flex justify-between gap-2 mb-4">
-          <h2 class="text-lg font-bold mb-3">My Projects</h2>
-          <a href="/projects/" class="inline-block py-2 underline dark:prose-invert">All projects &raquo;</a>
-        </div>
-        <ProjectList projects={top6Projects}/>
-      </section>
+			<section class='work-section' data-reveal>
+				<div class='section-heading'>
+					<div>
+						<p class='section-kicker'>Selected Work</p>
+						<h2>研究与写作</h2>
+					</div>
+					<p>围绕软件智能与算法训练持续积累。</p>
+				</div>
+				<ProjectList projects={projects}/>
+			</section>
 		</main>
 	</div>
 </BaseLayout>

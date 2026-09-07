@@ -1,100 +1,48 @@
 ---
-import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Ava from '@src/assets/img/ava.jpg';
 import { profile } from '../data/profile';
 import { SITE_DESCRIPTION } from '../consts';
 ---
 
-<BaseLayout
-	title={`${profile.handle} - About`}
-	description={SITE_DESCRIPTION}
->
-  <div class='container'>
-    <section class='about-hero grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-center mb-12' data-reveal>
-      <div class='about-photo-panel'>
-        <Image src={Ava} alt='Ve2m0uth avatar' width={320} class='about-photo'/>
-        <div>
-          <p class='text-sm uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400'>{profile.school}</p>
-          <h1 class='mt-2 text-4xl font-black'>{profile.name}</h1>
-          <p class='mt-2 text-zinc-600 dark:text-zinc-300'>{profile.handle} / {profile.major}</p>
-        </div>
-      </div>
-      <div>
-        <p class='section-kicker'>about me</p>
-        <h2 class='text-3xl font-black leading-tight md:text-4xl'>Security & LLM</h2>
-        <p class='mt-6 text-base leading-8 text-zinc-700 dark:text-zinc-300'>{profile.intro} {profile.shortIntro}</p>
-        <div class='mt-7 flex flex-wrap gap-3'>
-          <a class='action-link primary' href={`mailto:${profile.email}`}>Email me</a>
-          <a class='action-link' href={profile.github} target='_blank' rel='nofollow noopener'>GitHub</a>
-        </div>
-      </div>
-    </section>
+<BaseLayout title={`${profile.name} - About`} description={SITE_DESCRIPTION}>
+	<div class='container'>
+		<article class='about-page'>
+			<header class='about-page-header' data-reveal>
+				<p class='section-kicker'>About</p>
+				<h1>{profile.name}</h1>
+				<p class='about-lead'>{profile.intro}</p>
+			</header>
 
-    <section class='metric-grid mb-12' data-reveal>
-      {profile.highlights.map((item) => (
-        <div class='metric-card'>
-          <span>{item.label}</span>
-          <strong>{item.value}</strong>
-        </div>
-      ))}
-    </section>
+			<section class='about-section' data-reveal>
+				<p class='about-index'>Research</p>
+				<div>
+					<h2>面向软件工程的智能体研究</h2>
+					<p>{profile.research}</p>
+					<p>我希望继续探索具备语义理解、搜索规划与环境反馈能力的可靠智能体，让模型能够更稳健地分析、复现和处理真实软件问题。</p>
+					<a class='research-link' href={profile.arxiv} target='_blank' rel='noopener noreferrer'>TreeMind on arXiv <span aria-hidden='true'>↗</span></a>
+				</div>
+			</section>
 
-    <div class='grid gap-10 lg:grid-cols-[0.9fr_1.1fr]'>
-      <section class='space-y-8'>
-        <div class='glass-panel' data-reveal>
-          <p class='section-kicker'>education</p>
-          <h2 class='text-2xl font-bold'>{profile.school}</h2>
-          <p class='mt-2 text-zinc-600 dark:text-zinc-300'>{profile.college} / {profile.major}</p>
-          <p class='mt-4 text-sm text-zinc-500 dark:text-zinc-400'>2023.09 - 至今</p>
-        </div>
+			<section class='about-section' data-reveal>
+				<p class='about-index'>Writing</p>
+				<div>
+					<h2>科研过程与算法训练</h2>
+					<p>{profile.writing}</p>
+					<a class='research-link' href='/algorithm-summary/'>阅读算法训练笔记 <span aria-hidden='true'>→</span></a>
+				</div>
+			</section>
 
-        <div class='glass-panel' data-reveal>
-          <p class='section-kicker'>core courses</p>
-          <div class='chip-cloud'>
-            {profile.courses.map((course) => <span>{course}</span>)}
-          </div>
-        </div>
-
-        <div class='glass-panel' data-reveal>
-          <p class='section-kicker'>skills</p>
-          <div class='chip-cloud'>
-            {profile.skills.map((skill) => <span>{skill}</span>)}
-          </div>
-        </div>
-
-        <div class='glass-panel' data-reveal>
-          <p class='section-kicker'>awards</p>
-          <ul class='award-list'>
-            {profile.awards.map((award) => <li>{award}</li>)}
-          </ul>
-        </div>
-      </section>
-
-      <section data-reveal>
-        <p class='section-kicker'>research and competitions</p>
-        <h2 class='mb-6 text-2xl font-bold'>Selected Experience</h2>
-        <div class='timeline'>
-          {profile.experiences.map((item) => (
-            <article class='timeline-item'>
-              <div class='timeline-dot'></div>
-              <div class='timeline-card'>
-                <div class='flex flex-wrap items-start justify-between gap-3'>
-                  <div>
-                    <h3 class='text-xl font-bold'>{item.title}</h3>
-                    <p class='mt-1 text-sm text-zinc-500 dark:text-zinc-400'>{item.role}</p>
-                  </div>
-                  <span class='time-pill'>{item.time}</span>
-                </div>
-                <p class='mt-4 leading-7 text-zinc-700 dark:text-zinc-300'>{item.description}</p>
-                <ul class='mt-4 space-y-2 text-sm text-zinc-600 dark:text-zinc-300'>
-                  {item.outcomes.map((outcome) => <li>{outcome}</li>)}
-                </ul>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-    </div>
-  </div>
+			<section class='about-section' data-reveal>
+				<p class='about-index'>Contact</p>
+				<div>
+					<h2>联系我</h2>
+					<p>关于软件工程、LLM Agent 与自动化缺陷复现的交流，可以通过邮件或 GitHub 联系我。</p>
+					<div class='link-row'>
+						<a href={`mailto:${profile.email}`}>{profile.email}</a>
+						<a href={profile.github} target='_blank' rel='noopener noreferrer'>GitHub</a>
+					</div>
+				</div>
+			</section>
+		</article>
+	</div>
 </BaseLayout>

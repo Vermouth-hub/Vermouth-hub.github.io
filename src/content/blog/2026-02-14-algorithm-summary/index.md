@@ -1,7 +1,7 @@
 ---
 title: '常见算法总结'
 slug: 'algorithm-summary'
-description: 'some record for the learning process in leetcode'
+description: '面向机试与日常训练的常见算法整理，持续记录思路、模板与高频题型。'
 pubDate: 'Feb 14 2026'
 tags: ["algorithm", "leetcode"]
 coverImage: './image1.jpg'
@@ -1689,7 +1689,6 @@ sort(nums.begin(), nums.end());
 ```
 
 但是如果面试官追问底层原理，就要能说明快速排序、归并排序、堆排序之间的区别。
-
 
 
 

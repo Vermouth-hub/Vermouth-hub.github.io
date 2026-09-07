@@ -16,7 +16,7 @@ const menu = [
 <header id='site-header' class='site-header'>
 	<div class='container'>
 		<nav class='site-nav' aria-label='Main navigation'>
-			<a href='/' class='site-brand' aria-label='Ve2m0uth home'>
+			<a href='/' class='site-brand' data-magnetic aria-label='Ve2m0uth home'>
 				<Image src={AvaLogo} alt='' width={32} height={32}/>
 				<span>Ve2m0uth</span>
 			</a>
@@ -29,6 +29,7 @@ const menu = [
 			<div class='nav-actions'>
 				<a
 					class='icon-button dark:hidden'
+					data-magnetic
 					href='https://github.com/Vermouth-hub/Vermouth-hub.github.io'
 					target='_blank'
 					rel='noopener noreferrer'
@@ -39,6 +40,7 @@ const menu = [
 				</a>
 				<a
 					class='icon-button hidden dark:grid'
+					data-magnetic
 					href='https://github.com/Vermouth-hub/Vermouth-hub.github.io'
 					target='_blank'
 					rel='noopener noreferrer'
@@ -47,7 +49,7 @@ const menu = [
 				>
 					<Image src={GithubWhite} width={20} height={20} alt='' />
 				</a>
-				<button class='icon-button' id='themeToggle' aria-label='Toggle color theme' title='Toggle color theme'>
+				<button class='icon-button' data-magnetic id='themeToggle' aria-label='Toggle color theme' title='Toggle color theme'>
 					<svg class='sun' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'>
 						<circle cx='12' cy='12' r='4'></circle><path d='M12 2v2'></path><path d='M12 20v2'></path><path d='m4.93 4.93 1.41 1.41'></path><path d='m17.66 17.66 1.41 1.41'></path><path d='M2 12h2'></path><path d='M20 12h2'></path><path d='m6.34 17.66-1.41 1.41'></path><path d='m19.07 4.93-1.41 1.41'></path>
 					</svg>

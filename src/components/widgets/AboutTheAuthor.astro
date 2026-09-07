@@ -1,20 +1,18 @@
 ---
 import Author from '../Author.astro';
+import { profile } from '../../data/profile';
 ---
 
 <div
 	class='about-the-author py-4 border-b'
 >
-	<h3 class='font-extrabold uppercase mb-4 text-sm'>About the Author</h3>
+	<h3 class='font-bold uppercase mb-4 text-xs tracking-[0.08em] text-[var(--muted)]'>About the Author</h3>
 	<Author picSize='md' />
 	<div class='author-desc text-[.825rem] my-4'>
-		<p class='mb-3'>
-			Vermouth (V·e·m·0·u·th) is an Algorithm engineer with experiences building LLM and enterprise level products. He is actively writing on{
-				' '
-			}
-			<a href='https://vermouth-hub.github.io/' target='_blank' class="underline">Vermouth-hub.github.io</a>
+		<p class='mb-3 leading-6 text-[var(--muted)]'>
+			陈郑雨，关注 LLM Agent 与软件工程交叉研究，TreeMind 第一作者。
 		</p>
+		<a href={profile.arxiv} target='_blank' rel='noopener noreferrer' class='research-link'>TreeMind on arXiv <span aria-hidden='true'>↗</span></a>
 	</div>
 </div>
-
 

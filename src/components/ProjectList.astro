@@ -1,65 +1,44 @@
 ---
-import { Image } from 'astro:assets';
-import type { Project } from '../data/projects'
-import { kFormatter } from '../utils'
-import GithubWhite from '@src/assets/img/github-mark-white.svg';
-import GithubBlack from '@src/assets/img/github-mark.svg';
+import type { Project } from '../data/projects';
 
-const { projects } = Astro.props
-
+const { projects } = Astro.props;
+const isExternal = (href: string) => /^https?:\/\//.test(href);
 ---
-<div class="grid grid-cols-12 gap-5">
-  {
-    projects.map((project: Project) => 
-      <article class="project-card group col-span-12 sm:col-span-6 lg:col-span-4 p-5" data-reveal>
-        <div class="flex justify-between items-center">
-          <div class='flex flex-wrap gap-2'>
-            {
-              (project.tags || [] )?.map((tag: string) => (
-                <span
-                  class='tag-chip'
-                  >
-                  {tag}
-                </span>
-              ))
-            }
-          </div>
 
-          {project.stargazers_count !== undefined && (
-            <div class='shrink-0'>
-              <a
-                href={project.html_url}
-                target="_blank"
-                class='tag-link flex items-center gap-1'>
-                <Image src={GithubBlack} height={12} class='dark:hidden' alt='Github stars' />
-                <Image src={GithubWhite} height={12} class='hidden dark:block' alt='Github stars' />
-                {kFormatter(project.stargazers_count)} stars
-              </a>
-            </div>
-          )}
-        </div>
-        <h3 class="font-semibold my-3 text-xl">
-          <a class="underline decoration-[var(--line)] underline-offset-4 transition-colors duration-200 group-hover:text-[var(--accent)]" href={project.demoLink} target="_blank" rel={project.demoLinkRel}>{project.name}</a>
-        </h3>
-        <div class="line-clamp-2 text-zinc-600 dark:text-zinc-300 mb-4 min-h-[50px]">
-          <p>{project.description}</p>
-        </div>
-        <div class="flex justify-end gap-3">
-          {
-            project.postLink &&
-            <a class="underline flex items-center gap-2 underline-offset-4" href={project.postLink}>
-              Article
-            </a>
-          }
-          {
-            project.demoLink &&  // This line adds the conditional check for the Demo link
-            <a class="underline flex items-center gap-2 underline-offset-4" href={project.demoLink} target="_blank" rel={project.demoLinkRel}>
-              Demo 
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
-            </a>
-          }
-        </div>
-      </article>
-    )
-  }
+<div class='grid grid-cols-12 gap-5'>
+	{projects.map((project: Project) => (
+		<article class='project-card group col-span-12 md:col-span-6 p-6' data-reveal data-tilt>
+			<div class='flex flex-wrap gap-2'>
+				{(project.tags || []).map((tag: string) => <span class='tag-chip'>{tag}</span>)}
+			</div>
+
+			<h3 class='my-4 text-xl font-semibold'>
+				<a
+					class='underline decoration-[var(--line)] underline-offset-4 transition-colors duration-200 group-hover:text-[var(--accent)]'
+					href={project.demoLink}
+					target={isExternal(project.demoLink) ? '_blank' : undefined}
+					rel={isExternal(project.demoLink) ? 'noopener noreferrer' : undefined}
+				>
+					{project.name}
+				</a>
+			</h3>
+
+			<p class='mb-6 min-h-[4.5rem] leading-7 text-[var(--muted)]'>{project.description}</p>
+
+			<a
+				class='research-link'
+				data-magnetic
+				href={project.demoLink}
+				target={isExternal(project.demoLink) ? '_blank' : undefined}
+				rel={isExternal(project.demoLink) ? 'noopener noreferrer' : undefined}
+			>
+				{project.linkLabel}
+				<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'>
+					{isExternal(project.demoLink)
+						? <><path d='M15 3h6v6'/><path d='M10 14 21 3'/><path d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/></>
+						: <><path d='M5 12h14'/><path d='m13 6 6 6-6 6'/></>}
+				</svg>
+			</a>
+		</article>
+	))}
 </div>

@@ -34,7 +34,7 @@ const { Content, headings } = await render(post);
 		>
 			<article>
 				<Prose>
-					<div>
+					<div data-reveal>
 						<h1 class='!my-1 leading-tight'>{title}</h1>
             <div class='text-sm font-[500] mt-2 sm:mt-0 py-1 md:text-right flex flex-col sm:flex-row gap-3 sm:justify-between sm:items-center'>
               {
@@ -60,10 +60,12 @@ const { Content, headings } = await render(post);
               </div>
             </div>
 					</div>
-          <div class='py-3 overflow-hidden'>
+          <div class='py-3 overflow-hidden' data-reveal>
             {coverImage && <Image class='article-cover lg:mb-2' src={coverImage} alt={title} loading='eager' />}
           </div>
-					<Content />
+					<div class='article-body'>
+						<Content />
+					</div>
 				</Prose>
         {
           GISCUS_REPO &&

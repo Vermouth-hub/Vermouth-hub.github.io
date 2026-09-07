@@ -1,44 +1,27 @@
 export interface Project {
   name: string;
   demoLink: string;
+  linkLabel: string;
   tags?: string[];
   description?: string;
-  postLink?: string;
-  demoLinkRel?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export const projects: Project[] = [
   {
     name: 'TreeMind',
     description:
-      'An LLM-empowered Monte Carlo Tree Search method for automatically reproducing Android bug reports.',
-    demoLink: 'https://github.com/Vermouth-hub/TreeMind',
+      '通过 LLM 增强的蒙特卡洛树搜索，在不完整 Bug Report 下进行目标驱动的 Android UI 探索与缺陷自动复现。',
+    demoLink: 'https://arxiv.org/abs/2509.22431',
+    linkLabel: 'arXiv',
     tags: ['LLM', 'MCTS', 'Android', 'Research']
   },
   {
-    name: 'Custom System based on Django',
-    description: 'A custom management system based on Django and MySQL, focused on practical backend development.',
-    demoLink: 'https://github.com/Vermouth-hub/CRM-System-based-Django',
-    tags: ['Python', 'MySQL', 'Django']
-  },
-  {
-    name: 'SmartPlan App',
-    description: 'A smart plan app to manage business plans and daily work.',
-    demoLink: 'https://github.com/Vermouth-hub/HarmonyOS_SmartPlan',
-    tags: ['HarmonyOS', 'ArkTS']
-  },
-  {
-    name: 'Math Modeling Toolkit',
+    name: '常见算法总结',
     description:
-      'Competition-oriented modeling practice with regression, clustering, Monte Carlo simulation and statistical validation.',
-    demoLink: 'https://github.com/Vermouth-hub',
-    tags: ['Modeling', 'Python', 'Statistics']
-  },
-  {
-    name: 'Security Practice Notes',
-    description: 'Reverse engineering, CTF defense practice, emergency response and intranet penetration learning notes.',
-    demoLink: 'https://github.com/Vermouth-hub',
-    tags: ['CTF', 'Reverse', 'Security']
+      '面向机试与日常算法训练的长期笔记，整理数组、链表、哈希、字符串、排序与高频题型。',
+    demoLink: '/algorithm-summary/',
+    linkLabel: '阅读全文',
+    tags: ['Algorithms', 'C++', 'Notes']
   }
 ];

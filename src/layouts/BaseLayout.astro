@@ -12,32 +12,183 @@ const { title, description, image } = Astro.props;
 <html lang='zh-CN'>
 	<head>
 		<BaseHead title={title} description={description} image={image} />
+		<script is:inline>
+			document.documentElement.classList.add('js');
+			let savedTheme = null;
+			try {
+				savedTheme = localStorage.getItem('theme');
+			} catch {}
+			const initialTheme = savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+			document.documentElement.classList.toggle('dark', initialTheme === 'dark');
+		</script>
 	</head>
 	<body>
+		<div class='site-loader' aria-hidden='true'>
+			<div class='loader-mark'>
+				<span>Ve2m0uth / Research Log</span>
+				<i></i>
+			</div>
+		</div>
+		<div class='scroll-progress' aria-hidden='true'><i></i></div>
 		<div class="site-ambient" aria-hidden="true">
 			<div class="site-grid"></div>
+			<div class='pointer-aura'></div>
 		</div>
+		<div class='cursor-ring' aria-hidden='true'></div>
 		<Header/>
-		<div class='relative z-10 py-8 md:py-12 min-h-[calc(100vh-160px)]'>
+		<div class='page-content relative z-10 py-8 md:py-12 min-h-[calc(100vh-160px)]'>
 			<slot />
 		</div>
 		<Footer />
 		<script is:inline>
 			const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-			if (!reduceMotion) {
-				const revealItems = document.querySelectorAll('[data-reveal]');
+			const finePointer = window.matchMedia('(pointer: fine)').matches;
+			const revealItems = [...document.querySelectorAll('[data-reveal]')];
+			const loader = document.querySelector('.site-loader');
+			let isFirstVisit = true;
+			try {
+				isFirstVisit = !sessionStorage.getItem('intro-seen');
+			} catch {}
+
+			revealItems.forEach((item, index) => item.style.setProperty('--reveal-index', index % 4));
+
+			if (reduceMotion) {
+				document.body.classList.add('is-ready');
+				loader?.classList.add('is-skip');
+				revealItems.forEach((item) => item.classList.add('is-visible'));
+			} else {
+				if (!isFirstVisit) loader?.classList.add('is-skip');
+				setTimeout(() => document.body.classList.add('is-ready'), isFirstVisit ? 430 : 30);
+				setTimeout(() => loader?.remove(), isFirstVisit ? 1250 : 80);
+				try {
+					sessionStorage.setItem('intro-seen', '1');
+				} catch {}
+
 				const observer = new IntersectionObserver((entries) => {
 					entries.forEach((entry) => {
-						if (entry.isIntersecting) {
-							entry.target.classList.add('is-visible');
-							observer.unobserve(entry.target);
-						}
+						if (!entry.isIntersecting) return;
+						entry.target.classList.add('is-visible');
+						observer.unobserve(entry.target);
 					});
-				}, { threshold: 0.16 });
+				}, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
 				revealItems.forEach((item) => observer.observe(item));
-			} else {
-				document.querySelectorAll('[data-reveal]').forEach((item) => item.classList.add('is-visible'));
 			}
+
+			const header = document.querySelector('.site-header');
+			const progress = document.querySelector('.scroll-progress i');
+			const parallaxItems = [...document.querySelectorAll('.article-cover, .post-cover img')];
+			let scrollQueued = false;
+
+			function updateScrollEffects() {
+				const scrollTop = window.scrollY;
+				const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+				header?.classList.toggle('is-scrolled', scrollTop > 18);
+				progress?.style.setProperty('--scroll-progress', maxScroll > 0 ? scrollTop / maxScroll : 0);
+
+				if (!reduceMotion) {
+					parallaxItems.forEach((item) => {
+						const rect = item.getBoundingClientRect();
+						if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+						const offset = (rect.top + rect.height / 2 - window.innerHeight / 2) / window.innerHeight;
+						item.style.setProperty('--parallax-y', `${Math.max(-1, Math.min(1, offset)) * -8}px`);
+					});
+				}
+				scrollQueued = false;
+			}
+
+			window.addEventListener('scroll', () => {
+				if (scrollQueued) return;
+				scrollQueued = true;
+				requestAnimationFrame(updateScrollEffects);
+			}, { passive: true });
+			updateScrollEffects();
+
+			if (!reduceMotion && finePointer) {
+				document.body.classList.add('has-fine-pointer');
+				const aura = document.querySelector('.pointer-aura');
+				const ring = document.querySelector('.cursor-ring');
+				let targetX = window.innerWidth / 2;
+				let targetY = window.innerHeight / 2;
+				let auraX = targetX;
+				let auraY = targetY;
+				let ringX = targetX;
+				let ringY = targetY;
+				let pointerFrame = 0;
+
+				const renderPointer = () => {
+					auraX += (targetX - auraX) * 0.11;
+					auraY += (targetY - auraY) * 0.11;
+					ringX += (targetX - ringX) * 0.28;
+					ringY += (targetY - ringY) * 0.28;
+					aura?.style.setProperty('transform', `translate3d(${auraX}px, ${auraY}px, 0)`);
+					ring?.style.setProperty('transform', `translate3d(${ringX}px, ${ringY}px, 0)`);
+					if (Math.abs(targetX - auraX) > 0.1 || Math.abs(targetY - auraY) > 0.1) {
+						pointerFrame = requestAnimationFrame(renderPointer);
+					} else {
+						pointerFrame = 0;
+					}
+				};
+
+				window.addEventListener('pointermove', (event) => {
+					targetX = event.clientX;
+					targetY = event.clientY;
+					if (!pointerFrame) pointerFrame = requestAnimationFrame(renderPointer);
+				}, { passive: true });
+
+				document.querySelectorAll('a, button, [data-tilt]').forEach((item) => {
+					item.addEventListener('pointerenter', () => ring?.classList.add('is-active'));
+					item.addEventListener('pointerleave', () => ring?.classList.remove('is-active'));
+				});
+
+				document.querySelectorAll('[data-magnetic], .action-link').forEach((item) => {
+					item.addEventListener('pointermove', (event) => {
+						const rect = item.getBoundingClientRect();
+						item.style.setProperty('--magnetic-x', `${(event.clientX - rect.left - rect.width / 2) * 0.12}px`);
+						item.style.setProperty('--magnetic-y', `${(event.clientY - rect.top - rect.height / 2) * 0.16}px`);
+					});
+					item.addEventListener('pointerleave', () => {
+						item.style.setProperty('--magnetic-x', '0px');
+						item.style.setProperty('--magnetic-y', '0px');
+					});
+				});
+
+				document.querySelectorAll('[data-tilt]').forEach((item) => {
+					let tiltFrame = 0;
+					item.addEventListener('pointermove', (event) => {
+						if (tiltFrame) return;
+						tiltFrame = requestAnimationFrame(() => {
+							const rect = item.getBoundingClientRect();
+							const x = (event.clientX - rect.left) / rect.width;
+							const y = (event.clientY - rect.top) / rect.height;
+							item.style.setProperty('--tilt-x', `${(0.5 - y) * 3.5}deg`);
+							item.style.setProperty('--tilt-y', `${(x - 0.5) * 4.5}deg`);
+							item.style.setProperty('--spot-x', `${x * 100}%`);
+							item.style.setProperty('--spot-y', `${y * 100}%`);
+							item.classList.add('is-tilting');
+							tiltFrame = 0;
+						});
+					});
+					item.addEventListener('pointerleave', () => {
+						item.classList.remove('is-tilting');
+						item.style.setProperty('--tilt-x', '0deg');
+						item.style.setProperty('--tilt-y', '0deg');
+					});
+				});
+
+				const hero = document.querySelector('[data-hero]');
+				hero?.addEventListener('pointermove', (event) => {
+					const rect = hero.getBoundingClientRect();
+					hero.style.setProperty('--hero-x', `${((event.clientX - rect.left) / rect.width) * 100}%`);
+					hero.style.setProperty('--hero-y', `${((event.clientY - rect.top) / rect.height) * 100}%`);
+				});
+			}
+
+			document.getElementById('themeToggle')?.addEventListener('click', (event) => {
+				const button = event.currentTarget;
+				button.classList.remove('is-switching');
+				requestAnimationFrame(() => button.classList.add('is-switching'));
+				setTimeout(() => button.classList.remove('is-switching'), 460);
+			});
 		</script>
 		<!-- Google tag (gtag.js) -->
     {
