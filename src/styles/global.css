@@ -13,6 +13,7 @@
 		--accent-soft: #f1f3f2;
 		--warm: #555b58;
 		--code: #f2f4f3;
+		--font-code: "Cascadia Code", "Cascadia Mono", "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
 		--radius-control: 10px;
 		--radius-surface: 8px;
 		--radius-chip: 6px;
@@ -63,7 +64,9 @@
 
 	pre,
 	code {
+		font-family: var(--font-code);
 		font-size: 0.875rem;
+		font-variant-ligatures: contextual;
 	}
 
 	::selection {
@@ -803,15 +806,15 @@
 		--tw-prose-invert-td-borders: var(--line);
 	}
 
-	.prose :where(code):not(:where([class~='not-prose'] *)) {
+	.prose :where(:not(pre) > code):not(:where([class~='not-prose'] *)) {
 		border-radius: 3px;
 		background: var(--code);
 		padding: 0.15em 0.35em;
 		font-weight: 600;
 	}
 
-	.prose :where(code):not(:where([class~='not-prose'] *))::before,
-	.prose :where(code):not(:where([class~='not-prose'] *))::after {
+	.prose :where(:not(pre) > code):not(:where([class~='not-prose'] *))::before,
+	.prose :where(:not(pre) > code):not(:where([class~='not-prose'] *))::after {
 		content: '';
 	}
 
@@ -819,6 +822,37 @@
 		border: 1px solid #2b3731;
 		border-radius: var(--radius-surface);
 		box-shadow: none;
+		overflow-x: auto;
+		scrollbar-color: rgba(223, 231, 227, 0.42) transparent;
+		scrollbar-width: thin;
+	}
+
+	.prose :where(pre):not(:where([class~='not-prose'] *))::-webkit-scrollbar {
+		height: 8px;
+	}
+
+	.prose :where(pre):not(:where([class~='not-prose'] *))::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	.prose :where(pre):not(:where([class~='not-prose'] *))::-webkit-scrollbar-thumb {
+		border-radius: 999px;
+		background: rgba(223, 231, 227, 0.38);
+	}
+
+	.prose :where(pre code):not(:where([class~='not-prose'] *)) {
+		display: block;
+		min-width: max-content;
+		border: 0;
+		border-radius: 0;
+		background: transparent;
+		padding: 0;
+		color: inherit;
+		font-weight: 400;
+	}
+
+	.prose :where(pre code span):not(:where([class~='not-prose'] *)) {
+		background: transparent !important;
 	}
 
 	.prose :where(img):not(:where([class~='not-prose'] *)) {
