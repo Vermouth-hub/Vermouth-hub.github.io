@@ -20,14 +20,14 @@ function buildToc(headings: any) {
 }
 ---
 
-<nav class='toc sticky top-4 py-2 lg:-ml-3'>
-	<h3 class='font-extrabold uppercase mb-1 px-3 text-sm'>On This Page</h3>
+<nav class='toc sticky top-24 py-2 lg:-ml-3'>
+	<h3 class='font-bold uppercase mb-2 px-3 text-xs tracking-[0.08em] text-[var(--muted)]'>On This Page</h3>
 	<ul class='toc-list max-h-[calc(100vh-70px)] overflow-auto text-[.825rem] text-[var(--color-content-secondary)]'>
 		{
 			toc.map((heading: any) => (
 				<li>
 					<a
-						class='block font-bold py-1.5 px-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300'
+						class='block font-semibold py-1.5 px-3 border-l text-inherit leading-tight text-[var(--muted)]'
 						href={'#' + heading.slug}>
 						{heading.text}
 					</a>
@@ -36,7 +36,7 @@ function buildToc(headings: any) {
 							{heading.subheadings.map((subheading: any) => (
 								<li>
 									<a
-										class='block py-1.5 pl-6 pr-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300'
+									class='block py-1.5 pl-6 pr-3 border-l text-inherit leading-tight text-[var(--muted)]'
 										href={'#' + subheading.slug}>
 										{subheading.text}
 									</a>

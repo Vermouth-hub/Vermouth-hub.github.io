@@ -28,9 +28,9 @@ const { Content, headings } = await render(post);
 ---
 
 <BaseLayout title={seoTitle || title} description={description} image={coverImage?.src || undefined}>
-	<div class='container lg:flex gap-10'>
+	<div class='container lg:flex gap-12'>
 		<main
-			class='overflow-hidden grow'
+			class='overflow-hidden grow min-w-0'
 		>
 			<article>
 				<Prose>
@@ -42,10 +42,7 @@ const { Content, headings } = await render(post);
                   {
                     (tags || [] )?.map((tag: string) => (
                       <a
-                        class='border border-zinc-300 dark:border-zinc-700 rounded-2xl
-                          text-sm text-zinc-700 dark:text-zinc-300 no-underline px-2 py-0.5
-                          transition-all duration-700
-                        hover:border-zinc-700 dark:hover:border-zinc-300'
+                        class='tag-link'
                         href={`/tags/${slugify(tag)}`}>
                         {tag}
                       </a>
@@ -64,7 +61,7 @@ const { Content, headings } = await render(post);
             </div>
 					</div>
           <div class='py-3 overflow-hidden'>
-            {coverImage && <Image class='rounded-3xl w-full m-0 lg:mb-2' src={coverImage} alt={title} loading='eager' />}
+            {coverImage && <Image class='article-cover lg:mb-2' src={coverImage} alt={title} loading='eager' />}
           </div>
 					<Content />
 				</Prose>
@@ -91,12 +88,12 @@ const { Content, headings } = await render(post);
 
 			</article>
 		</main>
-    <div class='shrink-0 w-[280px] hidden md:block'>
+    <aside class='shrink-0 w-[260px] hidden lg:block'>
       <div class='mb-4'>
 				<AboutTheAuthor />
 			</div>
 			<TableOfContent headings={headings} />
-		</div>
+		</aside>
 	</div>
 </BaseLayout>
 

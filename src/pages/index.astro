@@ -58,13 +58,13 @@ const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b
       <section class="mb-14" data-reveal>
         <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
           <div>
-            <p class="section-kicker">toolbox</p>
+            <p class="section-kicker">Toolbox</p>
             <h2 class="text-2xl font-bold">Skills I keep sharpening</h2>
           </div>
         </div>
         <div class="skill-marquee">
           <div class="skill-track">
-            {[...profile.skills, ...profile.skills].map((skill) => <span>{skill}</span>)}
+            {profile.skills.map((skill) => <span>{skill}</span>)}
           </div>
         </div>
       </section>

@@ -65,10 +65,7 @@ const description = 'Post tags shows concise keywords categorizing content for e
             {
               (tags || [] )?.map((tag: Tag) => (
                 <a
-                  class='border border-zinc-300 dark:border-zinc-700 rounded-2xl
-                    text-sm text-zinc-700 dark:text-zinc-300 no-underline px-3 py-1
-                    transition-all duration-700
-                  hover:border-zinc-700 dark:hover:border-zinc-300'
+                  class='tag-link px-3'
                   href={`/tags/${slugify(tag.value)}/`}>
                   {tag.label} ({tag.postCount})
                 </a>
