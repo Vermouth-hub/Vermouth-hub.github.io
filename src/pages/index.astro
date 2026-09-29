@@ -1,31 +1,96 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Ava from '../assets/img/ava.jpg';
 import { SITE_TITLE, SITE_TAGLINE, SITE_DESCRIPTION } from '../consts';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PostItem from '../components/PostItem.astro';
 import { profile } from '../data/profile';
+import { publications } from '../data/academic';
 
-const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
+const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const latestPost = posts[0];
+const totalCharacters = posts.reduce((total, post) => total + (post.body ?? '').replace(/\s/g, '').length, 0);
+const compactCount = new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 });
+const lastUpdated = latestPost
+	? new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', year: 'numeric' }).format(latestPost.data.updatedDate ?? latestPost.data.pubDate)
+	: 'No posts yet';
 ---
 
 <BaseLayout title={SITE_TITLE + SITE_TAGLINE} description={SITE_DESCRIPTION}>
-	<main class='container reading-container'>
-		<section class='home-intro'>
-			<p class='eyebrow'>Information Security · LLM for Software Engineering</p>
-			<h1>Research notes, software security, and the work behind them.</h1>
-			<p class='lead'>{profile.intro}</p>
-			<div class='inline-actions'>
-				<a class='button primary' href='/academic/'>Academic profile</a>
-				<a class='button' href='/posts/'>Read the blog</a>
+	<main class='container home-profile-page'>
+		<header class='home-profile-hero'>
+			<Image class='home-avatar' src={Ava} alt={`${profile.handle} profile`} width={144} height={144} loading='eager' />
+			<div class='home-identity'>
+				<h1>{profile.handle}</h1>
+				<div class='home-badges'>
+					<span class='home-badge'>
+						<svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.7' aria-hidden='true'><path d='M3 21h18M5 21V7l7-4 7 4v14M9 9h1m4 0h1m-6 4h1m4 0h1m-6 4h6'></path></svg>
+						{profile.school}
+					</span>
+					<a class='home-badge' href={profile.github} target='_blank' rel='noopener noreferrer'>
+						<svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.7' aria-hidden='true'><path d='M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.3-.4 6.8-1.6 6.8-7A5.4 5.4 0 0 0 19.4 4 5 5 0 0 0 19.3.5S18.2.1 15 1.8a13.4 13.4 0 0 0-7 0C4.8.1 3.7.5 3.7.5A5 5 0 0 0 3.6 4a5.4 5.4 0 0 0-1.4 3.7c0 5.4 3.5 6.6 6.8 7A4.8 4.8 0 0 0 8 18v4'></path><path d='M8 19c-3 .9-3-1.5-4.2-2'></path></svg>
+						GitHub
+					</a>
+					<a class='home-badge' href={`mailto:${profile.email}`}>
+						<svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.7' aria-hidden='true'><rect x='3' y='5' width='18' height='14' rx='2'></rect><path d='m3 7 9 6 9-6'></path></svg>
+						Email
+					</a>
+					<a class='home-badge' href={profile.arxiv} target='_blank' rel='noopener noreferrer'>
+						<svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.7' aria-hidden='true'><path d='M6 3h9l3 3v15H6z'></path><path d='M14 3v4h4M9 12h6m-6 4h6'></path></svg>
+						arXiv
+					</a>
+				</div>
 			</div>
-		</section>
+		</header>
 
-		<section class='content-section'>
-			<header class='section-header'>
-				<div><p class='eyebrow'>Latest writing</p><h2>Recent posts</h2></div>
-				<a class='text-link' href='/posts/'>View all <span aria-hidden='true'>→</span></a>
-			</header>
-			<div class='post-list'>{posts.map((post) => <PostItem post={post} />)}</div>
-		</section>
+		<div class='home-profile-content'>
+			<section class='home-info-section'>
+				<h2>About</h2>
+				<div class='home-section-body'>
+					<p class='home-role'>{profile.major} student · {profile.direction}</p>
+					<p>{profile.intro}</p>
+					<a class='home-more-link' href='/about/'>More about me <span aria-hidden='true'>→</span></a>
+				</div>
+			</section>
+
+			<section class='home-info-section'>
+				<h2>Education</h2>
+				<div class='home-section-body'>
+					<div class='home-education-card'>
+						<h3>{profile.education[0].school}</h3>
+						<p>{profile.education[0].programme}</p>
+						<span>Current</span>
+					</div>
+				</div>
+			</section>
+
+			<section class='home-info-section'>
+				<h2>Statistics</h2>
+				<div class='home-section-body'>
+					<div class='home-stat-grid'>
+						<div class='home-stat-card'>
+							<svg width='21' height='21' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.6' aria-hidden='true'><path d='M5 4h11a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2z'></path><path d='M7 4v16m4-12h4m-4 4h4'></path></svg>
+							<strong>{posts.length}</strong><span>Blog posts</span>
+						</div>
+						<div class='home-stat-card'>
+							<svg width='21' height='21' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.6' aria-hidden='true'><path d='M4 19.5V5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2.5'></path><path d='M8 7h6m-6 4h6'></path></svg>
+							<strong>{publications.length}</strong><span>Publications</span>
+						</div>
+						<div class='home-stat-card'>
+							<svg width='21' height='21' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.6' aria-hidden='true'><path d='M4 5h16M4 12h16M4 19h10'></path></svg>
+							<strong>{compactCount.format(totalCharacters)}</strong><span>Characters</span>
+						</div>
+					</div>
+					<div class='home-stat-summary'><span>Last updated</span><strong>{lastUpdated}</strong></div>
+				</div>
+			</section>
+
+			<section class='home-info-section home-latest-section'>
+				<h2>Latest</h2>
+				<div class='home-section-body'>
+					{latestPost ? <a class='home-latest-link' href={`/${latestPost.id}/`}><span><strong>{latestPost.data.title}</strong><small>{latestPost.data.description}</small></span><span aria-hidden='true'>→</span></a> : <p>No posts yet.</p>}
+				</div>
+			</section>
+		</div>
 	</main>
 </BaseLayout>
