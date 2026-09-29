@@ -2,21 +2,24 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageShell from '../../components/PageShell.astro';
+import PageViews from '../../components/PageViews.astro';
 import PostsByYear from '../../components/PostsByYear.astro';
 import { slugify } from '../../utils';
+import { SITE_TITLE } from '../../consts';
 
 const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const tags = [...new Set(posts.flatMap((post) => post.data.tags ?? []))];
 const years = [...new Set(posts.map((post) => post.data.pubDate.getFullYear()))];
-const tocItems = [{ id: 'blog-overview', label: 'Blog overview' }, ...years.map((year) => ({ id: `year-${year}`, label: String(year) }))];
+const tocItems = [{id: 'blog-overview', label: 'Overview' }, ...years.map((year) => ({ id: `year-${year}`, label: `article-${year}` }))];
 ---
 
-<BaseLayout title='Blog · Ve2m0uth' description='Research notes, study insights, and technical writing by Ve2m0uth.'>
+<BaseLayout title={`Blog · ${SITE_TITLE}`} description='Research notes, study insights, and technical writing by Ve2m0uth.'>
 	<PageShell tocItems={tocItems}>
 		<header id='blog-overview' class='page-header'>
 			<p class='eyebrow'>Research & technical notes</p>
 			<h1>Blog</h1>
-			<p>Notes from research, software security, algorithms, and the practical details worth keeping.</p>
+			<PageViews />
+			<p>Here I document some insights from my studies. I hope I never stop learning, and I believe everything will get better. I'll do my part and leave the rest to fate.</p>
 		</header>
 
 		<div class='blog-toolbar'>

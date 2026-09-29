@@ -2,8 +2,9 @@
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import Ava from '../assets/img/ava.jpg';
-import { SITE_TITLE, SITE_TAGLINE, SITE_DESCRIPTION } from '../consts';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import PageShell from '../components/PageShell.astro';
+import PageViews from '../components/PageViews.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { profile } from '../data/profile';
 import { publications } from '../data/academic';
@@ -23,12 +24,13 @@ const tocItems = [
 ];
 ---
 
-<BaseLayout title={SITE_TITLE + SITE_TAGLINE} description={SITE_DESCRIPTION}>
+<BaseLayout title={`Home · ${SITE_TITLE}`} description={SITE_DESCRIPTION}>
 	<PageShell tocItems={tocItems} contentClass='home-profile-page'>
 		<header class='home-profile-hero'>
 			<Image class='home-avatar' src={Ava} alt={`${profile.handle} profile`} width={144} height={144} loading='eager' />
 			<div class='home-identity'>
 				<h2>{profile.handle}</h2>
+				<PageViews />
 				<div class='home-badges'>
 					<span class='home-badge'>
 						<svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.7' aria-hidden='true'><path d='M3 21h18M5 21V7l7-4 7 4v14M9 9h1m4 0h1m-6 4h1m4 0h1m-6 4h6'></path></svg>
@@ -54,7 +56,7 @@ const tocItems = [
 			<section id='about' class='home-info-section'>
 				<h2>About</h2>
 				<div class='home-section-body'>
-					<p class='home-role'>{profile.major} student · {profile.direction}</p>
+					<p class='home-role'>{profile.major} | {profile.direction} | {profile.education[0].stage}</p>
 					<p>{profile.intro}</p>
 					<a class='home-more-link' href='/about/'>More about me <span aria-hidden='true'>→</span></a>
 				</div>
@@ -62,11 +64,15 @@ const tocItems = [
 
 			<section id='education' class='home-info-section'>
 				<h2>Education</h2>
-				<div class='home-section-body'>
+				<div class='home-section-body home-education-grid'>
 					<div class='home-education-card'>
 						<h3>{profile.education[0].school}</h3>
-						<p>{profile.education[0].programme}</p>
+						<p>{profile.education[0].stage} in {profile.education[0].major}</p>
 						<span>Current</span>
+					</div>
+					<div class='home-education-card'>
+						<h3>{profile.education[1].school}</h3>
+						<p>{profile.education[1].stage} in {profile.education[1].major}</p>
 					</div>
 				</div>
 			</section>

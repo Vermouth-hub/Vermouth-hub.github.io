@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import BaseLayout from '@src/layouts/BaseLayout.astro';
 import PageShell from '@src/components/PageShell.astro';
+import PageViews from '@src/components/PageViews.astro';
 import { slugify, unslugify } from '@src/utils';
 import PostsByYear from '@src/components/PostsByYear.astro';
 
@@ -32,6 +33,7 @@ const tocItems = [{ id: 'tagged-posts', label: 'Tagged posts' }, ...years.map((y
 	<PageShell tocItems={tocItems}>
 		<header id='tagged-posts' class='page-header'>
 			<h1>{title}</h1>
+			<PageViews />
 		</header>
 		<PostsByYear posts={taggedPosts} />
 	</PageShell>

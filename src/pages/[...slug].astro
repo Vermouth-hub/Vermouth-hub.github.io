@@ -2,6 +2,7 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 import Prose from '../components/Prose.astro';
 import PageShell from '../components/PageShell.astro';
+import PageViews from '../components/PageViews.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import FormattedDate from '../components/FormattedDate.astro';
@@ -40,6 +41,7 @@ const readingMinutes = Math.max(1, Math.ceil((post.body ?? '').trim().split(/\s+
 				<header class='article-header'>
 					<a class='article-back' href='/posts/'>← Blog</a>
 					<h1>{title}</h1>
+					<PageViews />
 					<p class='article-description'>{description}</p>
 					<div class='article-meta'>
 						<span>

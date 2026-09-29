@@ -1,9 +1,9 @@
 ---
 title: 'algorithm-summary'
 slug: 'algorithm-summary'
-description: '面向机试与日常训练的常见算法整理，持续记录思路、模板与高频题型。'
+description: '记录一些常见的算法，锻炼动手能力'
 pubDate: 'Feb 14 2026'
-tags: ["algorithm", "leetcode"]
+tags: ["algorithm"]
 coverImage: './image1.jpg'
 ---
 ## 常见算法记录

@@ -37,6 +37,8 @@ const tocItems: TocItem[] = items.length
 </details>
 
 <script>
+	import { getActiveTocIndex } from '../../lib/toc-scroll.mjs';
+
 	const setupToc = (toc: HTMLDetailsElement) => {
 		if (toc.dataset.ready === 'true') return;
 		toc.dataset.ready = 'true';
@@ -54,11 +56,13 @@ const tocItems: TocItem[] = items.length
 		compactLayout.addEventListener('change', syncDisclosure);
 
 		const activate = () => {
-			const marker = window.scrollY + 160;
-			let current = targets[0];
-			for (const target of targets) {
-				if (target.offsetTop <= marker) current = target;
-			}
+			const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+			const currentIndex = getActiveTocIndex(
+				targets.map((target) => target.getBoundingClientRect().top),
+				window.innerHeight,
+				atBottom
+			);
+			const current = targets[currentIndex] ?? targets[0];
 			for (const link of links) {
 				const active = decodeURIComponent(link.hash.slice(1)) === current.id;
 				link.classList.toggle('is-active', active);
@@ -68,18 +72,17 @@ const tocItems: TocItem[] = items.length
 		};
 
 		let scheduled = false;
-		window.addEventListener(
-			'scroll',
-			() => {
-				if (scheduled) return;
-				scheduled = true;
-				requestAnimationFrame(() => {
-					activate();
-					scheduled = false;
-				});
-			},
-			{ passive: true }
-		);
+		const scheduleActivate = () => {
+			if (scheduled) return;
+			scheduled = true;
+			requestAnimationFrame(() => {
+				activate();
+				scheduled = false;
+			});
+		};
+		window.addEventListener('scroll', scheduleActivate, { passive: true });
+		window.addEventListener('resize', scheduleActivate, { passive: true });
+		window.addEventListener('load', scheduleActivate, { once: true });
 		window.addEventListener('hashchange', activate);
 		activate();
 	};
