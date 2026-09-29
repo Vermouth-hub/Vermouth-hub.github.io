@@ -4,12 +4,13 @@ import { profile } from '../../data/profile';
 const year = new Date().getFullYear();
 ---
 
-<footer class='container relative z-10 mt-10'>
-	<div class='flex flex-wrap items-center justify-between gap-4 border-t border-[var(--line)] py-6 text-xs text-[var(--muted)]'>
+<footer class='site-footer container'>
+	<div class='footer-inner'>
 		<p>© {year} {profile.name}</p>
-		<nav class='flex items-center gap-5' aria-label='Footer navigation'>
-			<a class='hover:text-[var(--accent)]' href={profile.github} target='_blank' rel='noopener noreferrer'>GitHub</a>
-			<a class='hover:text-[var(--accent)]' href={profile.arxiv} target='_blank' rel='noopener noreferrer'>arXiv</a>
+		<nav aria-label='Footer navigation'>
+			<a href='/rss.xml'>RSS</a>
+			<a href={profile.github} target='_blank' rel='noopener noreferrer'>GitHub</a>
+			<a href={profile.arxiv} target='_blank' rel='noopener noreferrer'>arXiv</a>
 		</nav>
 	</div>
 </footer>

@@ -2,19 +2,15 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectList from '../../components/ProjectList.astro';
 import { projects } from '../../data/projects';
-
 ---
 
-<BaseLayout
-	title="Research & Writing - Ve2m0uth"
-	description="TreeMind research and algorithm training notes by Ve2m0uth."
->
-  <div class='container'>
-    <div class="mb-10" data-reveal>
-      <p class="section-kicker mb-4">Selected Work</p>
-      <h1 class="text-3xl font-bold mb-2">Research & Writing</h1>
-      <p class="text-[var(--muted)] text-lg">Here are some of my selected research works and algorithm training notes.</p>
-    </div>
-    <ProjectList projects={projects}/>
-  </div>
+<BaseLayout title='Projects · Ve2m0uth' description='Personal software projects by Ve2m0uth.'>
+	<main class='container reading-container'>
+		<header class='page-header'>
+			<p class='eyebrow'>Selected work</p>
+			<h1>Projects</h1>
+			<p>Personal software projects and tools will be collected here as they are released.</p>
+		</header>
+		{projects.length > 0 ? <ProjectList projects={projects} /> : <section class='empty-state'><span aria-hidden='true'>○</span><h2>Projects are on the way.</h2><p>This space is intentionally empty for now. Future personal software projects will appear here.</p></section>}
+	</main>
 </BaseLayout>

@@ -1,17 +1,7 @@
 ---
-import { projects, type Project } from '../data/projects';
+import { projects } from '../data/projects';
 
-const accentByType = {
-	Research: 'cyan',
-	Project: 'blue',
-	Paper: 'violet',
-	Article: 'orange',
-	Writing: 'blue'
-} as const;
-
-function getTimelineType(project: Project) {
-	return project.timelineType ?? (project.tags?.includes('Research') ? 'Research' : 'Project');
-}
+const accent = 'blue';
 ---
 
 <section class='growth-tree-section' aria-labelledby='growth-tree-title'>
@@ -40,9 +30,8 @@ function getTimelineType(project: Project) {
 		<ol class='growth-tree-list'>
 			{
 				projects.map((project, index) => {
-					const type = getTimelineType(project);
-					const accent = accentByType[type];
-					const isExternal = /^https?:\/\//.test(project.demoLink);
+					const primaryLink = project.links?.[0];
+					const isExternal = primaryLink ? /^https?:\/\//.test(primaryLink.href) : false;
 
 					return (
 						<li
@@ -56,19 +45,12 @@ function getTimelineType(project: Project) {
 							</span>
 							<article class='tree-card'>
 								<div class='tree-card-meta'>
-									<span class='tree-card-type'>{type}</span>
-									<time>{project.timelineDate ?? 'Selected work'}</time>
+									<span class='tree-card-type'>Project</span>
+									<time>{project.date ?? 'Selected work'}</time>
 								</div>
 								<h3>{project.name}</h3>
 								{project.description && <p>{project.description}</p>}
-								<a
-									class='tree-card-link'
-									href={project.demoLink}
-									target={isExternal ? '_blank' : undefined}
-									rel={isExternal ? 'noopener noreferrer' : undefined}
-								>
-									{project.linkLabel} <span aria-hidden='true'>{isExternal ? '↗' : '→'}</span>
-								</a>
+								{primaryLink && <a class='tree-card-link' href={primaryLink.href} target={isExternal ? '_blank' : undefined} rel={isExternal ? 'noopener noreferrer' : undefined}>{primaryLink.label} <span aria-hidden='true'>{isExternal ? '↗' : '→'}</span></a>}
 							</article>
 						</li>
 					);

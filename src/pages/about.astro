@@ -1,32 +1,35 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import AboutTree from '../components/AboutTree.astro';
 import { profile } from '../data/profile';
 import { SITE_DESCRIPTION } from '../consts';
 ---
 
-<BaseLayout title={`${profile.name} - About`} description={SITE_DESCRIPTION}>
-	<div class='container'>
-		<article class='about-page'>
-			<header class='about-page-header' data-reveal>
-				<p class='section-kicker'>About</p>
-				<h1>{profile.name}</h1>
-				<p class='about-lead'>{profile.intro}</p>
-			</header>
+<BaseLayout title={`About · ${profile.name}`} description={SITE_DESCRIPTION}>
+	<main class='container reading-container'>
+		<header class='page-header about-header'>
+			<p class='eyebrow'>About</p>
+			<h1>Hi, I’m {profile.name}.</h1>
+			<p>{profile.intro}</p>
+		</header>
 
-			<AboutTree />
+		<section class='content-section text-section'>
+			<h2>Why this blog exists</h2>
+			<p>{profile.writing}</p>
+			<p>{profile.research}</p>
+		</section>
 
-			<section class='about-contact' data-reveal>
-				<p class='section-kicker'>Stay connected</p>
-				<div>
-					<h2>Let's compare notes.</h2>
-					<p>For discussions on LLM4SE, LLM Agents, and cybersecurity, feel free to reach out by email or GitHub.</p>
-					<div class='link-row'>
-						<a href={`mailto:${profile.email}`}>{profile.email}</a>
-						<a href={profile.github} target='_blank' rel='noopener noreferrer'>GitHub <span aria-hidden='true'>↗</span></a>
-					</div>
-				</div>
-			</section>
-		</article>
-	</div>
+		<section class='content-section'>
+			<h2>Topics I return to</h2>
+			<div class='topic-list'>{profile.topics.map((topic) => <span>{topic}</span>)}</div>
+		</section>
+
+		<section class='content-section contact-section'>
+			<h2>Contact</h2>
+			<p>If you would like to compare notes on LLM4SE, software security, or Android bug reproduction, feel free to reach out.</p>
+			<div class='link-list'>
+				<a href={`mailto:${profile.email}`}><span>Email</span><strong>{profile.email}</strong></a>
+				<a href={profile.github} target='_blank' rel='noopener noreferrer'><span>GitHub</span><strong>Vermouth-hub ↗</strong></a>
+			</div>
+		</section>
+	</main>
 </BaseLayout>

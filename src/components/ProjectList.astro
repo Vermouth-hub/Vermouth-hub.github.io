@@ -1,44 +1,20 @@
 ---
 import type { Project } from '../data/projects';
 
+interface Props { projects: Project[]; }
 const { projects } = Astro.props;
-const isExternal = (href: string) => /^https?:\/\//.test(href);
 ---
 
-<div class='grid grid-cols-12 gap-5'>
-	{projects.map((project: Project) => (
-		<article class='project-card group col-span-12 md:col-span-6 p-6' data-reveal data-tilt>
-			<div class='flex flex-wrap gap-2'>
-				{(project.tags || []).map((tag: string) => <span class='tag-chip'>{tag}</span>)}
+<div class='project-list'>
+	{projects.map((project, index) => <article class='project-item'>
+		<div class='project-index'>{String(index + 1).padStart(2, '0')}</div>
+		<div class='project-body'>
+			<div class='project-heading'>
+				<div><p>{project.date ?? 'Project'}</p><h2>{project.name}</h2></div>
 			</div>
-
-			<h3 class='my-4 text-xl font-semibold'>
-				<a
-					class='underline decoration-[var(--line)] underline-offset-4 transition-colors duration-200 group-hover:text-[var(--accent)]'
-					href={project.demoLink}
-					target={isExternal(project.demoLink) ? '_blank' : undefined}
-					rel={isExternal(project.demoLink) ? 'noopener noreferrer' : undefined}
-				>
-					{project.name}
-				</a>
-			</h3>
-
-			<p class='mb-6 min-h-[4.5rem] leading-7 text-[var(--muted)]'>{project.description}</p>
-
-			<a
-				class='research-link'
-				data-magnetic
-				href={project.demoLink}
-				target={isExternal(project.demoLink) ? '_blank' : undefined}
-				rel={isExternal(project.demoLink) ? 'noopener noreferrer' : undefined}
-			>
-				{project.linkLabel}
-				<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'>
-					{isExternal(project.demoLink)
-						? <><path d='M15 3h6v6'/><path d='M10 14 21 3'/><path d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/></>
-						: <><path d='M5 12h14'/><path d='m13 6 6 6-6 6'/></>}
-				</svg>
-			</a>
-		</article>
-	))}
+			<p>{project.description}</p>
+			<div class='tag-row'>{(project.tags ?? []).map((tag) => <span class='tag-chip'>{tag}</span>)}</div>
+			{project.links && project.links.length > 0 && <div class='project-links'>{project.links.map((link) => <a href={link.href} target='_blank' rel='noopener noreferrer'>{link.label} ↗</a>)}</div>}
+		</div>
+	</article>)}
 </div>

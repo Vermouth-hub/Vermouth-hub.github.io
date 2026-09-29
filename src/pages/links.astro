@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { profile } from '../data/profile';
+---
+
+<BaseLayout title='Links · Ve2m0uth' description='Selected profile and research links for Ve2m0uth.'>
+	<main class='container reading-container'>
+		<header class='page-header'>
+			<p class='eyebrow'>Directory</p>
+			<h1>Links</h1>
+			<p>A small directory of existing profile, research, and contact links.</p>
+		</header>
+		<div class='link-list'>
+			<a href={profile.github} target='_blank' rel='noopener noreferrer'><span>Code</span><strong>GitHub ↗</strong></a>
+			<a href={profile.arxiv} target='_blank' rel='noopener noreferrer'><span>Research</span><strong>arXiv ↗</strong></a>
+			<a href={`mailto:${profile.email}`}><span>Contact</span><strong>{profile.email}</strong></a>
+		</div>
+	</main>
+</BaseLayout>
