@@ -16,7 +16,7 @@ export interface Publication {
 // Add future papers and academic research records to this collection.
 export const publications: Publication[] = [
 	{
-		year: 2025,
+		year: 2026,
 		title: 'TreeMind: Automatically Reproducing Android Bug Reports via LLM-empowered Monte Carlo Tree Search',
 		authors: 'Zhengyu Chen, Zhaoyi Meng, Wenxiang Zhao, Wansen Wang, Wenchao Huang, Jie Cui, Hong Zhong, Yan Xiong',
 		venue: 'arXiv · Software Engineering',
