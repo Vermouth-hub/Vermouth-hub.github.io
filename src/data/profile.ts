@@ -10,7 +10,7 @@ export const profile = {
   intro:
     'I\'m currently a student in Anhui University, majoring in Information Security. My research interests focus on the application of large language models in software engineering and relative security problems. And I\'m also interested in cybersecurity(CVE-relative), and I enjoy exploring the intersection of AI and security.',
   research:
-  '',
+    'My research focuses on the LLM4SE、LLM Agent and cybersecurity.',
   writing:
     'This blog is used to document the research process and study notes, including paper reading, experiment review, and the insights on learning.'
 

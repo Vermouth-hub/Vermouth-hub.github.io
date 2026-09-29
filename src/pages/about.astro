@@ -16,9 +16,9 @@ import { SITE_DESCRIPTION } from '../consts';
 			<section class='about-section' data-reveal>
 				<p class='about-index'>Research</p>
 				<div>
-					<h2>面向软件工程的智能体研究</h2>
+					<h2>LLM4SE, LLM Agents, and Cybersecurity</h2>
 					<p>{profile.research}</p>
-					<p>我希望继续探索具备语义理解、搜索规划与环境反馈能力的可靠智能体，让模型能够更稳健地分析、复现和处理真实软件问题。</p>
+					<!-- <p>我希望继续探索具备语义理解、搜索规划与环境反馈能力的可靠智能体，让模型能够更稳健地分析、复现和处理真实软件问题。</p> -->
 					<a class='research-link' href={profile.arxiv} target='_blank' rel='noopener noreferrer'>TreeMind on arXiv <span aria-hidden='true'>↗</span></a>
 				</div>
 			</section>
@@ -26,17 +26,17 @@ import { SITE_DESCRIPTION } from '../consts';
 			<section class='about-section' data-reveal> 
 				<p class='about-index'>Writing</p>
 				<div>
-					<h2>科研过程与算法训练</h2>
+					<h2>Research Process & Study Insights</h2>
 					<p>{profile.writing}</p>
-					<a class='research-link' href='/algorithm-summary/'>阅读算法训练笔记 <span aria-hidden='true'>→</span></a>
+					<a class='research-link' href='/algorithm-summary/'>Read Study Notes <span aria-hidden='true'>→</span></a>
 				</div>
 			</section>
 
 			<section class='about-section' data-reveal>
 				<p class='about-index'>Contact</p>
 				<div>
-					<h2>联系我</h2>
-					<p>关于软件工程、LLM Agent 与自动化缺陷复现的交流，可以通过邮件或 GitHub 联系我。</p>
+					<h2>Contact Me</h2>
+					<p>For discussions on LLM4SE, LLM Agents, and Cybersecurity, feel free to reach out via email or GitHub.</p>
 					<div class='link-row'>
 						<a href={`mailto:${profile.email}`}>{profile.email}</a>
 						<a href={profile.github} target='_blank' rel='noopener noreferrer'>GitHub</a>

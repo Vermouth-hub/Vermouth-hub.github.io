@@ -1,5 +1,5 @@
 ---
-title: '常见算法总结'
+title: 'algorithm-summary'
 slug: 'algorithm-summary'
 description: '面向机试与日常训练的常见算法整理，持续记录思路、模板与高频题型。'
 pubDate: 'Feb 14 2026'
