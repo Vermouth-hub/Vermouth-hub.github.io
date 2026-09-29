@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import BaseLayout from '@src/layouts/BaseLayout.astro';
+import PageShell from '@src/components/PageShell.astro';
 import { slugify, unslugify } from '@src/utils';
 import PostsByYear from '@src/components/PostsByYear.astro';
 
@@ -23,16 +24,15 @@ const allPosts: BlogPost[] = (await getCollection('blog')).sort((a, b) => b.data
 const taggedPosts = allPosts.filter((post) => post.data.tags?.map((tag) => slugify(tag)).includes(tag || ''));
 const title = `All Posts Tagged with ${unslugify(tag || '')}`;
 const description = `All Posts Tagged with ${unslugify(tag || '')}`;
+const years = [...new Set(taggedPosts.map((post) => post.data.pubDate.getFullYear()))];
+const tocItems = [{ id: 'tagged-posts', label: 'Tagged posts' }, ...years.map((year) => ({ id: `year-${year}`, label: String(year) }))];
 ---
 
-<BaseLayout
-	title={title}
-	description={description}
->
-  <div class='container'>
-    <div class="mb-10">
-      <h1 class="text-3xl font-bold mb-2">{title}</h1>
-    </div>
-    <PostsByYear posts={taggedPosts}/>
-  </div>
+<BaseLayout title={title} description={description}>
+	<PageShell tocItems={tocItems}>
+		<header id='tagged-posts' class='page-header'>
+			<h1 class='text-3xl font-bold mb-2'>{title}</h1>
+		</header>
+		<PostsByYear posts={taggedPosts} />
+	</PageShell>
 </BaseLayout>

@@ -1,11 +1,11 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content';
 import Prose from '../components/Prose.astro';
+import PageShell from '../components/PageShell.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import FormattedDate from '../components/FormattedDate.astro';
 import AboutTheAuthor from '../components/widgets/AboutTheAuthor.astro';
-import TableOfContent from '../components/widgets/TableOfContent.astro';
 import { slugify } from '../utils';
 import { loadEnv } from 'vite';
 import { render } from 'astro:content';
@@ -34,98 +34,59 @@ const readingMinutes = Math.max(1, Math.ceil((post.body ?? '').trim().split(/\s+
 ---
 
 <BaseLayout title={seoTitle || title} description={description} image={coverImage?.src || undefined}>
-	<div class='container article-layout'>
-		<main class='article-main'>
-			<article class='article-page'>
-				<Prose>
-					<header class='article-header'>
-						<a class='article-back' href='/posts/'>← Blog</a>
-						<h1>{title}</h1>
-						<p class='article-description'>{description}</p>
-						<div class='article-meta'>
-							<span>
-								{
-									updatedDate ? (
-										<>
-											Updated <FormattedDate date={updatedDate} />
-										</>
-									) : (
-										<>
-											Published <FormattedDate date={pubDate} />
-										</>
-									)
-								}
-							</span>
-							<span>{readingMinutes} min read</span>
-							{SHOW_TAGS && (tags || []).map((tag: string) => <a href={`/tags/${slugify(tag)}/`}>{tag}</a>)}
-						</div>
-					</header>
-					{coverImage && <Image class='article-cover' src={coverImage} alt={title} loading='eager' />}
-					<div class='article-body'>
-						<Content />
+	<PageShell headings={headings} contentClass='article-main'>
+		<article class='article-page'>
+			<Prose>
+				<header class='article-header'>
+					<a class='article-back' href='/posts/'>← Blog</a>
+					<h1>{title}</h1>
+					<p class='article-description'>{description}</p>
+					<div class='article-meta'>
+						<span>
+							{
+								updatedDate ? (
+									<>
+										Updated <FormattedDate date={updatedDate} />
+									</>
+								) : (
+									<>
+										Published <FormattedDate date={pubDate} />
+									</>
+								)
+							}
+						</span>
+						<span>{readingMinutes} min read</span>
+						{SHOW_TAGS && (tags || []).map((tag: string) => <a href={`/tags/${slugify(tag)}/`}>{tag}</a>)}
 					</div>
-				</Prose>
-				{
-					GISCUS_REPO && (
-						<script
-							id='giscus-script'
-							is:inline
-							src='https://giscus.app/client.js'
-							data-repo={GISCUS_REPO}
-							data-repo-id={GISCUS_REPO_ID}
-							data-category={GISCUS_CATEGORY}
-							data-category-id={GISCUS_CATEGORY_ID}
-							data-mapping='pathname'
-							data-strict='0'
-							data-reactions-enabled='1'
-							data-emit-metadata='0'
-							data-input-position='bottom'
-							data-theme='preferred_color_scheme'
-							data-lang='en'
-							crossorigin='anonymous'
-							async
-						/>
-					)
-				}
-			</article>
-		</main>
-		<aside class='article-sidebar'>
-			<div class='mb-4'>
-				<AboutTheAuthor />
-			</div>
-			<TableOfContent headings={headings} />
-		</aside>
-	</div>
+				</header>
+				{coverImage && <Image class='article-cover' src={coverImage} alt={title} loading='eager' />}
+				<div class='article-body'>
+					<Content />
+				</div>
+			</Prose>
+			{
+				GISCUS_REPO && (
+					<script
+						id='giscus-script'
+						is:inline
+						src='https://giscus.app/client.js'
+						data-repo={GISCUS_REPO}
+						data-repo-id={GISCUS_REPO_ID}
+						data-category={GISCUS_CATEGORY}
+						data-category-id={GISCUS_CATEGORY_ID}
+						data-mapping='pathname'
+						data-strict='0'
+						data-reactions-enabled='1'
+						data-emit-metadata='0'
+						data-input-position='bottom'
+						data-theme='preferred_color_scheme'
+						data-lang='en'
+						crossorigin='anonymous'
+						async
+					/>
+				)
+			}
+		</article>
+		<AboutTheAuthor slot='sidebar' />
+	</PageShell>
 </BaseLayout>
-
-<script async is:inline>
-	const anchors = document.querySelectorAll('.prose h2[id], .prose h3[id]');
-	const links = document.querySelectorAll('nav.toc ul li a');
-
-	function observeToc() {
-		if (typeof anchors != 'undefined' && anchors != null && typeof links != 'undefined' && links != null) {
-			let scrollTop = window.scrollY;
-
-			// highlight the last scrolled-to: set everything inactive first
-			for (const link of links) {
-				link.classList.add('border-transparent', 'text-inherit');
-				link.classList.remove('bg-[var(--background-surface-color)]', 'border-[var(--soft-border-color)]', 'text-[var(--link-color)]');
-			}
-			// then iterate backwards, on the first match highlight it and break
-			for (var i = anchors.length - 1; i >= 0; i--) {
-				if (scrollTop > anchors[i].offsetTop - 80) {
-					links[i].classList.remove('border-transparent', 'text-inherit');
-					links[i].classList.add('bg-[var(--background-surface-color)]', 'border-[var(--soft-border-color)]', 'text-[var(--link-color)]');
-					break;
-				}
-			}
-		}
-	}
-
-	window.addEventListener('scroll', (event) => {
-		observeToc(event);
-	});
-	window.addEventListener('hashchange', (event) => {
-		observeToc(event);
-	});
-</script>

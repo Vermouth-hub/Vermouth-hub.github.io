@@ -1,35 +1,47 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageShell from '../components/PageShell.astro';
 import { profile } from '../data/profile';
 import { SITE_DESCRIPTION } from '../consts';
+
+const tocItems = [
+	{ id: 'biography', label: 'Biography' },
+	{ id: 'writing', label: 'Why this blog exists' },
+	{ id: 'topics', label: 'Topics I return to' },
+	{ id: 'contact', label: 'Contact' }
+];
 ---
 
 <BaseLayout title={`About · ${profile.name}`} description={SITE_DESCRIPTION}>
-	<main class='container reading-container'>
-		<header class='page-header about-header'>
+	<PageShell tocItems={tocItems}>
+		<header id='biography' class='page-header about-header'>
 			<p class='eyebrow'>About</p>
 			<h1>Hi, I’m {profile.name}.</h1>
 			<p>{profile.intro}</p>
 		</header>
 
-		<section class='content-section text-section'>
+		<section id='writing' class='content-section text-section'>
 			<h2>Why this blog exists</h2>
-			<p>{profile.writing}</p>
-			<p>{profile.research}</p>
+			<div class='about-copy-card card card-interactive'>
+				<p>{profile.writing}</p>
+				<p>{profile.research}</p>
+			</div>
 		</section>
 
-		<section class='content-section'>
+		<section id='topics' class='content-section'>
 			<h2>Topics I return to</h2>
 			<div class='topic-list'>{profile.topics.map((topic) => <span>{topic}</span>)}</div>
 		</section>
 
-		<section class='content-section contact-section'>
+		<section id='contact' class='content-section contact-section'>
 			<h2>Contact</h2>
-			<p>If you would like to compare notes on LLM4SE, software security, or Android bug reproduction, feel free to reach out.</p>
+			<p class='contact-copy card card-interactive'>
+				If you would like to compare notes on LLM4SE, software security, or Android bug reproduction, feel free to reach out.
+			</p>
 			<div class='link-list'>
 				<a href={`mailto:${profile.email}`}><span>Email</span><strong>{profile.email}</strong></a>
 				<a href={profile.github} target='_blank' rel='noopener noreferrer'><span>GitHub</span><strong>Vermouth-hub ↗</strong></a>
 			</div>
 		</section>
-	</main>
+	</PageShell>
 </BaseLayout>

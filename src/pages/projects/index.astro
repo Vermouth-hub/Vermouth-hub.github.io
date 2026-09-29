@@ -1,16 +1,34 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageShell from '../../components/PageShell.astro';
 import ProjectList from '../../components/ProjectList.astro';
 import { projects } from '../../data/projects';
+
+const tocItems = [
+	{ id: 'projects-overview', label: 'Overview' },
+	{ id: 'project-list', label: 'Projects' }
+];
 ---
 
 <BaseLayout title='Projects · Ve2m0uth' description='Personal software projects by Ve2m0uth.'>
-	<main class='container reading-container'>
-		<header class='page-header'>
+	<PageShell tocItems={tocItems}>
+		<header id='projects-overview' class='page-header'>
 			<p class='eyebrow'>Selected work</p>
 			<h1>Projects</h1>
 			<p>Personal software projects and tools will be collected here as they are released.</p>
 		</header>
-		{projects.length > 0 ? <ProjectList projects={projects} /> : <section class='empty-state'><span aria-hidden='true'>○</span><h2>Projects are on the way.</h2><p>This space is intentionally empty for now. Future personal software projects will appear here.</p></section>}
-	</main>
+		<section id='project-list'>
+			{
+				projects.length > 0 ? (
+					<ProjectList projects={projects} />
+				) : (
+					<div class='empty-state card'>
+						<span aria-hidden='true'>○</span>
+						<h2>Projects are on the way.</h2>
+						<p>This space is intentionally empty for now. Future personal software projects will appear here.</p>
+					</div>
+				)
+			}
+		</section>
+	</PageShell>
 </BaseLayout>

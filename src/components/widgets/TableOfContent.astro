@@ -1,67 +1,88 @@
 ---
-const { headings, maxLevel = 3 } = Astro.props;
-const toc = buildToc(headings);
-function buildToc(headings: any) {
-	const _toc: any = [];
-	const parentHeadings = new Map();
-	(headings || []).forEach((h: any) => {
-		const heading = { ...h, subheadings: [] };
-		parentHeadings.set(heading.depth, heading);
-		// Change 2 to 1 if your markdown includes your <h1>
-		if (heading.depth === 2) {
-			_toc.push(heading);
-		} else {
-			if (maxLevel > 2) {
-				parentHeadings.get(heading.depth - 1)?.subheadings?.push(heading);
-			}
-		}
-	});
-	return _toc;
+interface TocItem {
+	id: string;
+	label: string;
+	depth?: number;
 }
+
+interface Props {
+	headings?: Array<{ depth: number; slug: string; text: string }>;
+	items?: TocItem[];
+	maxLevel?: number;
+}
+
+const { headings = [], items = [], maxLevel = 3 } = Astro.props;
+const tocItems: TocItem[] = items.length
+	? items
+	: headings
+			.filter((heading) => heading.depth >= 2 && heading.depth <= maxLevel)
+			.map((heading) => ({ id: heading.slug, label: heading.text, depth: heading.depth }));
 ---
 
-<nav class='toc side-panel sticky top-24 lg:-ml-3'>
-	<h3 class='font-bold uppercase mb-2 px-3 text-[.82rem] tracking-[0.08em] text-[var(--muted)]'>On This Page</h3>
-	<ul class='toc-list max-h-[calc(100vh-70px)] overflow-auto text-[.95rem] text-[var(--color-content-secondary)]'>
-		{
-			toc.map((heading: any) => (
-				<li>
-					<a class='block font-semibold py-2 px-3 border-l text-inherit leading-snug text-[var(--muted)]' href={'#' + heading.slug}>
-						{heading.text}
-					</a>
-					{heading.subheadings?.length > 0 && (
-						<ul>
-							{heading.subheadings.map((subheading: any) => (
-								<li>
-									<a class='block py-2 pl-6 pr-3 border-l text-inherit leading-snug text-[var(--muted)]' href={'#' + subheading.slug}>
-										{subheading.text}
-									</a>
-								</li>
-							))}
-						</ul>
-					)}
-				</li>
-			))
-		}
-	</ul>
-</nav>
-<style>
-	.toc-list::-webkit-scrollbar {
-		width: 5px;
-	}
+<details class='table-of-contents' data-page-toc open>
+	<summary>On this page</summary>
+	<nav aria-label='Table of contents'>
+		<ul class='toc-list'>
+			{
+				tocItems.map((item) => (
+					<li class:list={{ 'toc-subitem': (item.depth ?? 2) > 2 }}>
+						<a href={`#${item.id}`} data-toc-link>
+							{item.label}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</nav>
+</details>
 
-	/* Track */
-	.toc-list::-webkit-scrollbar-track {
-		background: transparent;
-	}
+<script>
+	const setupToc = (toc: HTMLDetailsElement) => {
+		if (toc.dataset.ready === 'true') return;
+		toc.dataset.ready = 'true';
+		const links = [...toc.querySelectorAll<HTMLAnchorElement>('[data-toc-link]')];
+		const targets = links
+			.map((link) => document.getElementById(decodeURIComponent(link.hash.slice(1))))
+			.filter((target): target is HTMLElement => Boolean(target));
+		if (!targets.length) return;
+		const compactLayout = window.matchMedia('(max-width: 1024px)');
+		const syncDisclosure = (event: MediaQueryList | MediaQueryListEvent) => {
+			if (event.matches) toc.removeAttribute('open');
+			else toc.setAttribute('open', '');
+		};
+		syncDisclosure(compactLayout);
+		compactLayout.addEventListener('change', syncDisclosure);
 
-	/* Handle */
-	.toc-list::-webkit-scrollbar-thumb {
-		background: #eeeeee;
-		border-radius: 5px;
-	}
-	:global(.dark) .toc-list::-webkit-scrollbar-thumb {
-		background: #2e2e2e;
-		border-radius: 5px;
-	}
-</style>
+		const activate = () => {
+			const marker = window.scrollY + 160;
+			let current = targets[0];
+			for (const target of targets) {
+				if (target.offsetTop <= marker) current = target;
+			}
+			for (const link of links) {
+				const active = decodeURIComponent(link.hash.slice(1)) === current.id;
+				link.classList.toggle('is-active', active);
+				if (active) link.setAttribute('aria-current', 'location');
+				else link.removeAttribute('aria-current');
+			}
+		};
+
+		let scheduled = false;
+		window.addEventListener(
+			'scroll',
+			() => {
+				if (scheduled) return;
+				scheduled = true;
+				requestAnimationFrame(() => {
+					activate();
+					scheduled = false;
+				});
+			},
+			{ passive: true }
+		);
+		window.addEventListener('hashchange', activate);
+		activate();
+	};
+
+	document.querySelectorAll<HTMLDetailsElement>('[data-page-toc]').forEach(setupToc);
+</script>

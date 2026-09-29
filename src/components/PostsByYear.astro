@@ -3,7 +3,9 @@ import type { CollectionEntry } from 'astro:content';
 import PostItem from './PostItem.astro';
 
 type BlogPost = CollectionEntry<'blog'>;
-interface Props { posts: BlogPost[]; }
+interface Props {
+	posts: BlogPost[];
+}
 const { posts } = Astro.props;
 const grouped = Object.entries(
 	posts.reduce(
@@ -20,7 +22,7 @@ const grouped = Object.entries(
 <div class='posts-by-year'>
 	{
 		grouped.map(([year, yearPosts]) => (
-			<section class='year-group'>
+			<section id={`year-${year}`} class='year-group'>
 				<h2>{year}</h2>
 				<div class='post-list'>
 					{yearPosts.map((post) => (

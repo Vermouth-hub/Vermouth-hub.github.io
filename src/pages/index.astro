@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import Ava from '../assets/img/ava.jpg';
 import { SITE_TITLE, SITE_TAGLINE, SITE_DESCRIPTION } from '../consts';
+import PageShell from '../components/PageShell.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { profile } from '../data/profile';
 import { publications } from '../data/academic';
@@ -14,10 +15,16 @@ const compactCount = new Intl.NumberFormat('en', { notation: 'compact', maximumF
 const lastUpdated = latestPost
 	? new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', year: 'numeric' }).format(latestPost.data.updatedDate ?? latestPost.data.pubDate)
 	: 'No posts yet';
+const tocItems = [
+	{ id: 'about', label: 'About' },
+	{ id: 'education', label: 'Education' },
+	{ id: 'statistics', label: 'Statistics' },
+	{ id: 'latest', label: 'Latest' }
+];
 ---
 
 <BaseLayout title={SITE_TITLE + SITE_TAGLINE} description={SITE_DESCRIPTION}>
-	<main class='container home-profile-page'>
+	<PageShell tocItems={tocItems} contentClass='home-profile-page'>
 		<header class='home-profile-hero'>
 			<Image class='home-avatar' src={Ava} alt={`${profile.handle} profile`} width={144} height={144} loading='eager' />
 			<div class='home-identity'>
@@ -44,7 +51,7 @@ const lastUpdated = latestPost
 		</header>
 
 		<div class='home-profile-content'>
-			<section class='home-info-section'>
+			<section id='about' class='home-info-section'>
 				<h2>About</h2>
 				<div class='home-section-body'>
 					<p class='home-role'>{profile.major} student · {profile.direction}</p>
@@ -53,7 +60,7 @@ const lastUpdated = latestPost
 				</div>
 			</section>
 
-			<section class='home-info-section'>
+			<section id='education' class='home-info-section'>
 				<h2>Education</h2>
 				<div class='home-section-body'>
 					<div class='home-education-card'>
@@ -64,7 +71,7 @@ const lastUpdated = latestPost
 				</div>
 			</section>
 
-			<section class='home-info-section'>
+			<section id='statistics' class='home-info-section'>
 				<h2>Statistics</h2>
 				<div class='home-section-body'>
 					<div class='home-stat-grid'>
@@ -85,12 +92,12 @@ const lastUpdated = latestPost
 				</div>
 			</section>
 
-			<section class='home-info-section home-latest-section'>
+			<section id='latest' class='home-info-section home-latest-section'>
 				<h2>Latest</h2>
 				<div class='home-section-body'>
 					{latestPost ? <a class='home-latest-link' href={`/${latestPost.id}/`}><span><strong>{latestPost.data.title}</strong><small>{latestPost.data.description}</small></span><span aria-hidden='true'>→</span></a> : <p>No posts yet.</p>}
 				</div>
 			</section>
 		</div>
-	</main>
+	</PageShell>
 </BaseLayout>

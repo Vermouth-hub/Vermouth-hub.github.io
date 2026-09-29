@@ -1,0 +1,39 @@
+---
+import TableOfContent from './widgets/TableOfContent.astro';
+
+export interface TocItem {
+	id: string;
+	label: string;
+	depth?: number;
+}
+
+interface Props {
+	headings?: Array<{ depth: number; slug: string; text: string }>;
+	tocItems?: TocItem[];
+	contentClass?: string;
+}
+
+const { headings = [], tocItems = [], contentClass } = Astro.props;
+const hasToc = headings.length > 0 || tocItems.length > 0;
+const hasSidebar = Astro.slots.has('sidebar');
+---
+
+<div class:list={['container', 'page-shell', { 'page-shell--single': !hasToc }]}>
+	<main class:list={['page-shell__content', contentClass]}>
+		<slot />
+	</main>
+	{
+		hasToc && (
+			<aside class='page-shell__rail' aria-label='Page navigation'>
+				<div class='page-shell__rail-inner'>
+					<TableOfContent headings={headings} items={tocItems} />
+					{hasSidebar && (
+						<div class='page-shell__sidebar-extra'>
+							<slot name='sidebar' />
+						</div>
+					)}
+				</div>
+			</aside>
+		)
+	}
+</div>

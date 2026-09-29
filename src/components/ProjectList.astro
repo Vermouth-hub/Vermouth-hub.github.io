@@ -1,20 +1,41 @@
 ---
 import type { Project } from '../data/projects';
 
-interface Props { projects: Project[]; }
+interface Props {
+	projects: Project[];
+}
 const { projects } = Astro.props;
 ---
 
 <div class='project-list'>
-	{projects.map((project, index) => <article class='project-item'>
-		<div class='project-index'>{String(index + 1).padStart(2, '0')}</div>
-		<div class='project-body'>
-			<div class='project-heading'>
-				<div><p>{project.date ?? 'Project'}</p><h2>{project.name}</h2></div>
-			</div>
-			<p>{project.description}</p>
-			<div class='tag-row'>{(project.tags ?? []).map((tag) => <span class='tag-chip'>{tag}</span>)}</div>
-			{project.links && project.links.length > 0 && <div class='project-links'>{project.links.map((link) => <a href={link.href} target='_blank' rel='noopener noreferrer'>{link.label} ↗</a>)}</div>}
-		</div>
-	</article>)}
+	{
+		projects.map((project, index) => (
+			<article class='project-item card card-interactive'>
+				<div class='project-index'>{String(index + 1).padStart(2, '0')}</div>
+				<div class='project-body'>
+					<div class='project-heading'>
+						<div>
+							<p>{project.date ?? 'Project'}</p>
+							<h2>{project.name}</h2>
+						</div>
+					</div>
+					<p>{project.description}</p>
+					<div class='tag-row'>
+						{(project.tags ?? []).map((tag) => (
+							<span class='tag-chip'>{tag}</span>
+						))}
+					</div>
+					{project.links && project.links.length > 0 && (
+						<div class='project-links'>
+							{project.links.map((link) => (
+								<a href={link.href} target='_blank' rel='noopener noreferrer'>
+									{link.label} ↗
+								</a>
+							))}
+						</div>
+					)}
+				</div>
+			</article>
+		))
+	}
 </div>

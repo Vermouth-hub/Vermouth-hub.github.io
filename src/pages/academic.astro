@@ -1,69 +1,70 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageShell from '../components/PageShell.astro';
 import { profile } from '../data/profile';
 import { publications } from '../data/academic';
+
+const tocItems = [
+	{ id: 'interests', label: 'Research interests' },
+	{ id: 'publications', label: 'Selected publications' }
+];
 ---
 
 <BaseLayout title='Academic · Ve2m0uth' description='Academic profile, research interests, and publications by Ve2m0uth.'>
-	<main class='container academic-layout'>
-		<aside class='page-toc' aria-label='On this page'>
-			<p>On this page</p>
-			<a href='#about'>About me</a><a href='#interests'>Research interests</a><a href='#publications'>Publications</a>
-		</aside>
+	<PageShell tocItems={tocItems} contentClass='academic-content'>
+		<header class='page-header'>
+			<!-- <p class='eyebrow'>Research profile</p> -->
+			<h2>Academic</h2>
+			<!-- <p>{profile.direction} · {profile.school}</p> -->
+		</header>
 
-		<article class='academic-content'>
-			<header class='page-header'>
-				<p class='eyebrow'>Research profile</p>
-				<h1>Academic</h1>
-				<p>{profile.direction} · {profile.school}</p>
-			</header>
-
-			<section id='about' class='academic-section'>
+		<!-- <section id='about' class='academic-section'>
 				<h2>About me</h2>
 				<p>{profile.intro}</p>
 				<div class='education-row'>
 					<span>Education</span><div><strong>{profile.education[0].school}</strong><p>{profile.education[0].programme}</p></div>
 				</div>
-			</section>
+			</section> -->
 
-			<section id='interests' class='academic-section'>
-				<h2>Research interests</h2>
-				<div class='interest-list'>
-					{
-						profile.researchInterests.map((interest) => (
-							<article>
-								<h3>{interest.name}</h3>
-								<p>{interest.description}</p>
-							</article>
-						))
-					}
-				</div>
-			</section>
+		<section id='interests' class='academic-section'>
+			<h2>Research interests</h2>
+			<div class='interest-list'>
+				{
+					profile.researchInterests.map((interest) => (
+						<article class='card card-interactive'>
+							<h3>{interest.name}</h3>
+							<p>{interest.description}</p>
+						</article>
+					))
+				}
+			</div>
+		</section>
 
-			<section id='publications' class='academic-section'>
-				<h2>Selected publications</h2>
-				<div class='publication-list'>
-					{
-						publications.map((publication) => (
-							<article class='publication-item'>
-								<div class='publication-year'>{publication.year}</div>
-								<div>
-									<div class='publication-status'>{publication.status}</div>
-									<h3>{publication.title}</h3>
-									<p class='authors'>{publication.authors}</p>
-									<p class='venue'>{publication.venue}</p>
-									<p>{publication.description}</p>
-									<div class='publication-links'>
-										{publication.links.map((link) => (
-											<a href={link.href} target='_blank' rel='noopener noreferrer'>{link.label} ↗</a>
-										))}
-									</div>
+		<section id='publications' class='academic-section'>
+			<h2>Selected publications</h2>
+			<div class='publication-list'>
+				{
+					publications.map((publication) => (
+						<article class='publication-item card card-interactive'>
+							<div class='publication-year'>{publication.year}</div>
+							<div>
+								<div class='publication-status'>{publication.status}</div>
+								<h3>{publication.title}</h3>
+								<p class='authors'>{publication.authors}</p>
+								<p class='venue'>{publication.venue}</p>
+								<p>{publication.description}</p>
+								<div class='publication-links'>
+									{publication.links.map((link) => (
+										<a href={link.href} target='_blank' rel='noopener noreferrer'>
+											{link.label} ↗
+										</a>
+									))}
 								</div>
-							</article>
-						))
-					}
-				</div>
-			</section>
-		</article>
-	</main>
+							</div>
+						</article>
+					))
+				}
+			</div>
+		</section>
+	</PageShell>
 </BaseLayout>
