@@ -8,7 +8,7 @@ import { profile } from '../data/profile';
 
 <BaseLayout title={SITE_TITLE + SITE_TAGLINE} description={SITE_DESCRIPTION}>
 	<div class='container'>
-		<section class='hero-shell research-hero grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center mb-14' data-hero>
+		<section class='hero-shell research-hero home-hero grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center mb-14' data-hero>
 			<div class='text-pretty'>
 				<p class='eyebrow'>Software Engineering / LLM Agents</p>
 				<h1 class='hero-title mb-5'>
@@ -34,19 +34,21 @@ import { profile } from '../data/profile';
 					<span>LLM</span>
 					<span>MCTS</span>
 				</div>
-				<a class='research-link' href={profile.arxiv} target='_blank' rel='noopener noreferrer'>Read on arXiv <span aria-hidden='true'>↗</span></a>
+				<a class='research-link' href={profile.arxiv} target='_blank' rel='noopener noreferrer'
+					>Read on arXiv <span aria-hidden='true'>↗</span></a
+				>
 			</aside>
 		</section>
 
 		<main>
-			<section class='work-section' data-reveal>
+			<section class='work-section home-work-section' data-reveal>
 				<div class='section-heading'>
 					<div>
 						<p class='section-kicker'>Selected Work</p>
 						<h2>Research & Writing</h2>
 					</div>
 				</div>
-				<ProjectList projects={projects}/>
+				<ProjectList projects={projects} />
 			</section>
 		</main>
 	</div>

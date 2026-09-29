@@ -1,65 +1,17 @@
 ---
-import { profile } from '../data/profile';
+import { projects, type Project } from '../data/projects';
 
-type TreeEntry = {
-	title: string;
-	time: string;
-	type: 'Research' | 'Project' | 'Paper' | 'Article' | 'Writing';
-	description: string;
-	accent: 'blue' | 'cyan' | 'violet' | 'orange';
-	href?: string;
-	linkLabel?: string;
-};
+const accentByType = {
+	Research: 'cyan',
+	Project: 'blue',
+	Paper: 'violet',
+	Article: 'orange',
+	Writing: 'blue'
+} as const;
 
-// This small, explicit record is intentionally close to the About page copy.
-// Add new milestones here as the research tree grows.
-const entries: TreeEntry[] = [
-	{
-		title: 'LLM4SE & Security',
-		time: 'Current focus',
-		type: 'Research',
-		description:
-			'Exploring how language models and agents can understand software systems, reason through failures, and support security-oriented engineering work.',
-		accent: 'blue'
-	},
-	{
-		title: 'TreeMind',
-		time: '2025',
-		type: 'Project',
-		description: 'An LLM-enhanced Monte Carlo tree search workflow for reproducing Android bugs from incomplete reports.',
-		accent: 'cyan',
-		href: profile.arxiv,
-		linkLabel: 'Explore the project'
-	},
-	{
-		title: 'TreeMind paper',
-		time: 'Sep 2025',
-		type: 'Paper',
-		description:
-			'Documenting a practical path from partial bug reports to reproducible Android failures through search, planning, and environment feedback.',
-		accent: 'violet',
-		href: profile.arxiv,
-		linkLabel: 'Read on arXiv'
-	},
-	{
-		title: 'Algorithm summary',
-		time: 'Feb 2026',
-		type: 'Article',
-		description: 'A growing set of notes on algorithms and data structures: the foundations that keep research practice grounded.',
-		accent: 'orange',
-		href: '/algorithm-summary/',
-		linkLabel: 'Read the notes'
-	},
-	{
-		title: 'Research process & study insights',
-		time: 'Ongoing',
-		type: 'Writing',
-		description: profile.writing,
-		accent: 'blue',
-		href: '/posts/',
-		linkLabel: 'Browse writing'
-	}
-];
+function getTimelineType(project: Project) {
+	return project.timelineType ?? (project.tags?.includes('Research') ? 'Research' : 'Project');
+}
 ---
 
 <section class='growth-tree-section' aria-labelledby='growth-tree-title'>
@@ -68,7 +20,7 @@ const entries: TreeEntry[] = [
 			<p class='section-kicker'>Growth record</p>
 			<h2 id='growth-tree-title'>A research tree in progress</h2>
 		</div>
-		<p>Each branch marks a question explored, a result shared, or a note kept for the next stage of learning.</p>
+		<p>Every branch is generated from the selected work record: research, papers, projects, and posts.</p>
 	</div>
 
 	<div class='growth-tree'>
@@ -87,36 +39,40 @@ const entries: TreeEntry[] = [
 
 		<ol class='growth-tree-list'>
 			{
-				entries.map((entry, index) => (
-					<li
-						class:list={['tree-node', `tree-node--${index % 2 === 0 ? 'left' : 'right'}`, `tree-node--${entry.accent}`]}
-						data-reveal
-						style={`--tree-node-index: ${index};`}
-					>
-						<span class='tree-node-branch' aria-hidden='true' />
-						<span class='tree-node-marker' aria-hidden='true'>
-							<i />
-						</span>
-						<article class='tree-card'>
-							<div class='tree-card-meta'>
-								<span class='tree-card-type'>{entry.type}</span>
-								<time>{entry.time}</time>
-							</div>
-							<h3>{entry.title}</h3>
-							<p>{entry.description}</p>
-							{entry.href && (
+				projects.map((project, index) => {
+					const type = getTimelineType(project);
+					const accent = accentByType[type];
+					const isExternal = /^https?:\/\//.test(project.demoLink);
+
+					return (
+						<li
+							class:list={['tree-node', `tree-node--${index % 2 === 0 ? 'left' : 'right'}`, `tree-node--${accent}`]}
+							data-reveal
+							style={`--tree-node-index: ${index};`}
+						>
+							<span class='tree-node-branch' aria-hidden='true' />
+							<span class='tree-node-marker' aria-hidden='true'>
+								<i />
+							</span>
+							<article class='tree-card'>
+								<div class='tree-card-meta'>
+									<span class='tree-card-type'>{type}</span>
+									<time>{project.timelineDate ?? 'Selected work'}</time>
+								</div>
+								<h3>{project.name}</h3>
+								{project.description && <p>{project.description}</p>}
 								<a
 									class='tree-card-link'
-									href={entry.href}
-									target={entry.href.startsWith('http') ? '_blank' : undefined}
-									rel={entry.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+									href={project.demoLink}
+									target={isExternal ? '_blank' : undefined}
+									rel={isExternal ? 'noopener noreferrer' : undefined}
 								>
-									{entry.linkLabel} <span aria-hidden='true'>{entry.href.startsWith('http') ? '↗' : '→'}</span>
+									{project.linkLabel} <span aria-hidden='true'>{isExternal ? '↗' : '→'}</span>
 								</a>
-							)}
-						</article>
-					</li>
-				))
+							</article>
+						</li>
+					);
+				})
 			}
 		</ol>
 	</div>

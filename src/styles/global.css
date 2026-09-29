@@ -234,6 +234,23 @@
 		min-height: 31rem;
 	}
 
+	.home-hero {
+		border: 1px solid color-mix(in srgb, var(--accent) 16%, var(--line));
+		border-radius: var(--radius-large);
+		background: radial-gradient(32rem circle at 92% 6%, color-mix(in srgb, var(--accent-cyan) 14%, transparent), transparent 64%),
+			radial-gradient(26rem circle at 5% 102%, color-mix(in srgb, var(--accent-violet) 10%, transparent), transparent 66%),
+			color-mix(in srgb, var(--surface) 92%, transparent);
+		padding-inline: clamp(1.35rem, 5vw, 3.5rem);
+		box-shadow: 0 20px 54px color-mix(in srgb, var(--accent) 7%, transparent);
+	}
+
+	.home-hero .hero-name {
+		background: linear-gradient(105deg, var(--ink) 18%, var(--accent) 64%, var(--accent-violet));
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+
 	.compact-hero {
 		min-height: 31rem;
 	}
@@ -291,6 +308,55 @@
 		position: relative;
 		border-left: 1px solid var(--line);
 		padding: 0.75rem 0 0.75rem 2rem;
+	}
+
+	.home-hero .research-brief {
+		border: 1px solid color-mix(in srgb, var(--accent-cyan) 28%, var(--line));
+		border-radius: var(--radius-surface);
+		background: linear-gradient(
+			145deg,
+			color-mix(in srgb, var(--surface) 78%, transparent),
+			color-mix(in srgb, var(--accent-cyan) 7%, var(--surface))
+		);
+		padding: 1.5rem;
+		box-shadow: 0 14px 36px color-mix(in srgb, var(--accent-cyan) 10%, transparent);
+	}
+
+	.home-hero .research-brief::before {
+		top: 0;
+		left: 1.5rem;
+		width: 3rem;
+		height: 2px;
+		border-radius: 999px;
+		background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet));
+	}
+
+	.home-hero .research-brief::after {
+		top: 1rem;
+		left: auto;
+		right: 1.1rem;
+		background: var(--accent-cyan);
+		box-shadow:
+			0 0 0 1px var(--accent-cyan),
+			0 0 12px color-mix(in srgb, var(--accent-cyan) 62%, transparent);
+	}
+
+	.home-hero .research-meta span:nth-child(1) {
+		border-color: color-mix(in srgb, var(--accent) 42%, var(--line));
+		background: color-mix(in srgb, var(--accent) 8%, transparent);
+		color: var(--accent);
+	}
+
+	.home-hero .research-meta span:nth-child(2) {
+		border-color: color-mix(in srgb, var(--accent-violet) 42%, var(--line));
+		background: color-mix(in srgb, var(--accent-violet) 8%, transparent);
+		color: var(--accent-violet);
+	}
+
+	.home-hero .research-meta span:nth-child(3) {
+		border-color: color-mix(in srgb, var(--accent-orange) 42%, var(--line));
+		background: color-mix(in srgb, var(--accent-orange) 8%, transparent);
+		color: var(--accent-orange);
 	}
 
 	.research-brief::before {
@@ -413,6 +479,18 @@
 		border-color: var(--accent);
 		background: var(--accent);
 		color: #ffffff;
+	}
+
+	.home-hero .action-link.primary {
+		border-color: transparent;
+		background: linear-gradient(110deg, var(--accent), var(--accent-cyan));
+		box-shadow: 0 10px 24px color-mix(in srgb, var(--accent) 22%, transparent);
+	}
+
+	.home-hero .action-link:not(.primary) {
+		border-color: color-mix(in srgb, var(--accent-violet) 34%, var(--line));
+		background: color-mix(in srgb, var(--accent-violet) 5%, var(--surface));
+		color: var(--accent-violet);
 	}
 
 	.hero-portrait-wrap {
@@ -734,6 +812,50 @@
 	.project-card:hover {
 		border-color: color-mix(in srgb, var(--accent) 60%, var(--line));
 		background: var(--surface);
+	}
+
+	.home-work-section .section-heading {
+		border: 1px solid color-mix(in srgb, var(--accent) 15%, var(--line));
+		border-radius: var(--radius-surface);
+		background: linear-gradient(
+			100deg,
+			color-mix(in srgb, var(--accent) 5%, var(--surface)),
+			color-mix(in srgb, var(--accent-violet) 4%, var(--surface))
+		);
+		padding: 1.15rem 1.35rem;
+	}
+
+	.home-work-section .project-card {
+		--card-accent: var(--accent-cyan);
+		border-top: 2px solid var(--card-accent);
+		background: linear-gradient(
+			145deg,
+			color-mix(in srgb, var(--surface) 94%, transparent),
+			color-mix(in srgb, var(--card-accent) 5%, var(--surface))
+		);
+	}
+
+	.home-work-section .project-card:nth-child(even) {
+		--card-accent: var(--accent-violet);
+	}
+
+	.home-work-section .project-card:hover {
+		border-color: color-mix(in srgb, var(--card-accent) 55%, var(--line));
+		border-top-color: var(--card-accent);
+	}
+
+	.home-work-section .project-card::before {
+		background: radial-gradient(
+			18rem circle at var(--spot-x) var(--spot-y),
+			color-mix(in srgb, var(--card-accent) 13%, transparent),
+			transparent 64%
+		);
+	}
+
+	.home-work-section .project-card .tag-chip:first-child {
+		border-color: color-mix(in srgb, var(--card-accent) 42%, var(--line));
+		background: color-mix(in srgb, var(--card-accent) 9%, transparent);
+		color: var(--card-accent);
 	}
 
 	.about-page {
