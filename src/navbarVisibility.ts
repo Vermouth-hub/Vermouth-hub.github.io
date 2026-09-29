@@ -27,7 +27,7 @@ export function setupNavbarVisibility(header: HTMLElement, options: NavbarVisibi
 
 		const delta = currentScrollY - lastScrollY;
 		if (Math.abs(delta) >= DIRECTION_DELTA) {
-			header.dataset.state = delta > 0 && currentScrollY > HIDE_START_THRESHOLD ? 'hidden' : 'visible';
+			header.dataset.state = delta > 0 && currentScrollY > HIDE_START_THRESHOLD ? 'compact' : 'visible';
 			lastScrollY = currentScrollY;
 		}
 

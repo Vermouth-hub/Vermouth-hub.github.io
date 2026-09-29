@@ -31,7 +31,7 @@ const tocItems = [{ id: 'tagged-posts', label: 'Tagged posts' }, ...years.map((y
 <BaseLayout title={title} description={description}>
 	<PageShell tocItems={tocItems}>
 		<header id='tagged-posts' class='page-header'>
-			<h1 class='text-3xl font-bold mb-2'>{title}</h1>
+			<h1>{title}</h1>
 		</header>
 		<PostsByYear posts={taggedPosts} />
 	</PageShell>
