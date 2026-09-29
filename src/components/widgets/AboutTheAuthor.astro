@@ -3,15 +3,13 @@ import Author from '../Author.astro';
 import { profile } from '../../data/profile';
 ---
 
-<div
-	class='about-the-author py-4 border-b'
->
+<div class='side-panel about-the-author'>
 	<h3 class='font-bold uppercase mb-4 text-[.82rem] tracking-[0.08em] text-[var(--muted)]'>About the Author</h3>
 	<Author picSize='md' />
 	<div class='author-desc text-[.95rem] my-4'>
-		<p class='mb-3 leading-7 text-[var(--muted)]'>
-			ve2m0uth，关注 LLM Agent 与软件工程交叉研究，TreeMind 第一作者。
-		</p>
-		<a href={profile.arxiv} target='_blank' rel='noopener noreferrer' class='research-link'>TreeMind on arXiv <span aria-hidden='true'>↗</span></a>
+		<p class='mb-3 leading-7 text-[var(--muted)]'>ve2m0uth，关注 LLM Agent 与软件工程交叉研究，TreeMind 第一作者。</p>
+		<a href={profile.arxiv} target='_blank' rel='noopener noreferrer' class='research-link'
+			>TreeMind on arXiv <span aria-hidden='true'>↗</span></a
+		>
 	</div>
 </div>

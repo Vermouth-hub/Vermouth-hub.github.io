@@ -4,12 +4,14 @@ import { Image } from 'astro:assets';
 import AvaLogo from '@src/assets/img/small-ava.jpg';
 import GithubWhite from '@src/assets/img/github-mark-white.svg';
 import GithubBlack from '@src/assets/img/github-mark.svg';
+import { SHOW_TAGS } from '../../consts';
 
 const menu = [
 	{ link: '/about/', label: 'About' },
 	{ link: '/posts/', label: 'Posts' },
 	{ link: '/projects/', label: 'Projects' },
-	{ link: '/tags/', label: 'Tags' }
+	// Tags page temporarily disabled. Restore this navigation item when tag browsing is needed again.
+	...(SHOW_TAGS ? [{ link: '/tags/', label: 'Tags' }] : [])
 ];
 ---
 
@@ -17,7 +19,7 @@ const menu = [
 	<div class='container'>
 		<nav class='site-nav' aria-label='Main navigation'>
 			<a href='/' class='site-brand' data-magnetic aria-label='Ve2m0uth home'>
-				<Image src={AvaLogo} alt='' width={32} height={32}/>
+				<Image src={AvaLogo} alt='' width={32} height={32} />
 				<span>Ve2m0uth</span>
 			</a>
 
@@ -50,10 +52,34 @@ const menu = [
 					<Image src={GithubWhite} width={20} height={20} alt='' />
 				</a>
 				<button class='icon-button' data-magnetic id='themeToggle' aria-label='Toggle color theme' title='Toggle color theme'>
-					<svg class='sun' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'>
-						<circle cx='12' cy='12' r='4'></circle><path d='M12 2v2'></path><path d='M12 20v2'></path><path d='m4.93 4.93 1.41 1.41'></path><path d='m17.66 17.66 1.41 1.41'></path><path d='M2 12h2'></path><path d='M20 12h2'></path><path d='m6.34 17.66-1.41 1.41'></path><path d='m19.07 4.93-1.41 1.41'></path>
+					<svg
+						class='sun'
+						xmlns='http://www.w3.org/2000/svg'
+						width='20'
+						height='20'
+						viewBox='0 0 24 24'
+						fill='none'
+						stroke='currentColor'
+						stroke-width='1.8'
+						stroke-linecap='round'
+						stroke-linejoin='round'
+					>
+						<circle cx='12' cy='12' r='4'></circle><path d='M12 2v2'></path><path d='M12 20v2'></path><path d='m4.93 4.93 1.41 1.41'
+						></path><path d='m17.66 17.66 1.41 1.41'></path><path d='M2 12h2'></path><path d='M20 12h2'></path><path
+							d='m6.34 17.66-1.41 1.41'></path><path d='m19.07 4.93-1.41 1.41'></path>
 					</svg>
-					<svg class='moon' xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'>
+					<svg
+						class='moon'
+						xmlns='http://www.w3.org/2000/svg'
+						width='20'
+						height='20'
+						viewBox='0 0 24 24'
+						fill='none'
+						stroke='currentColor'
+						stroke-width='1.8'
+						stroke-linecap='round'
+						stroke-linejoin='round'
+					>
 						<path d='M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z'></path>
 					</svg>
 				</button>
@@ -62,9 +88,15 @@ const menu = [
 	</div>
 
 	<style is:global>
-		#themeToggle .moon { display: none; }
-		.dark #themeToggle .sun { display: none; }
-		.dark #themeToggle .moon { display: block; }
+		#themeToggle .moon {
+			display: none;
+		}
+		.dark #themeToggle .sun {
+			display: none;
+		}
+		.dark #themeToggle .moon {
+			display: block;
+		}
 	</style>
 
 	<script is:inline>

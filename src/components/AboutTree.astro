@@ -1,0 +1,123 @@
+---
+import { profile } from '../data/profile';
+
+type TreeEntry = {
+	title: string;
+	time: string;
+	type: 'Research' | 'Project' | 'Paper' | 'Article' | 'Writing';
+	description: string;
+	accent: 'blue' | 'cyan' | 'violet' | 'orange';
+	href?: string;
+	linkLabel?: string;
+};
+
+// This small, explicit record is intentionally close to the About page copy.
+// Add new milestones here as the research tree grows.
+const entries: TreeEntry[] = [
+	{
+		title: 'LLM4SE & Security',
+		time: 'Current focus',
+		type: 'Research',
+		description:
+			'Exploring how language models and agents can understand software systems, reason through failures, and support security-oriented engineering work.',
+		accent: 'blue'
+	},
+	{
+		title: 'TreeMind',
+		time: '2025',
+		type: 'Project',
+		description: 'An LLM-enhanced Monte Carlo tree search workflow for reproducing Android bugs from incomplete reports.',
+		accent: 'cyan',
+		href: profile.arxiv,
+		linkLabel: 'Explore the project'
+	},
+	{
+		title: 'TreeMind paper',
+		time: 'Sep 2025',
+		type: 'Paper',
+		description:
+			'Documenting a practical path from partial bug reports to reproducible Android failures through search, planning, and environment feedback.',
+		accent: 'violet',
+		href: profile.arxiv,
+		linkLabel: 'Read on arXiv'
+	},
+	{
+		title: 'Algorithm summary',
+		time: 'Feb 2026',
+		type: 'Article',
+		description: 'A growing set of notes on algorithms and data structures: the foundations that keep research practice grounded.',
+		accent: 'orange',
+		href: '/algorithm-summary/',
+		linkLabel: 'Read the notes'
+	},
+	{
+		title: 'Research process & study insights',
+		time: 'Ongoing',
+		type: 'Writing',
+		description: profile.writing,
+		accent: 'blue',
+		href: '/posts/',
+		linkLabel: 'Browse writing'
+	}
+];
+---
+
+<section class='growth-tree-section' aria-labelledby='growth-tree-title'>
+	<div class='growth-tree-heading' data-reveal>
+		<div>
+			<p class='section-kicker'>Growth record</p>
+			<h2 id='growth-tree-title'>A research tree in progress</h2>
+		</div>
+		<p>Each branch marks a question explored, a result shared, or a note kept for the next stage of learning.</p>
+	</div>
+
+	<div class='growth-tree'>
+		<div class='growth-tree-glow growth-tree-glow--one' aria-hidden='true'></div>
+		<div class='growth-tree-glow growth-tree-glow--two' aria-hidden='true'></div>
+		<svg class='growth-tree-trunk' viewBox='0 0 100 1000' preserveAspectRatio='none' aria-hidden='true' focusable='false'>
+			<defs>
+				<linearGradient id='growth-tree-gradient' x1='0' x2='1' y1='0' y2='1'>
+					<stop offset='0' stop-color='#58a6ff'></stop>
+					<stop offset='0.48' stop-color='#32c7b5'></stop>
+					<stop offset='1' stop-color='#9b7bff'></stop>
+				</linearGradient>
+			</defs>
+			<path d='M50 0 C36 110 64 184 48 296 S63 484 50 590 S37 786 52 1000' pathLength='1'></path>
+		</svg>
+
+		<ol class='growth-tree-list'>
+			{
+				entries.map((entry, index) => (
+					<li
+						class:list={['tree-node', `tree-node--${index % 2 === 0 ? 'left' : 'right'}`, `tree-node--${entry.accent}`]}
+						data-reveal
+						style={`--tree-node-index: ${index};`}
+					>
+						<span class='tree-node-branch' aria-hidden='true' />
+						<span class='tree-node-marker' aria-hidden='true'>
+							<i />
+						</span>
+						<article class='tree-card'>
+							<div class='tree-card-meta'>
+								<span class='tree-card-type'>{entry.type}</span>
+								<time>{entry.time}</time>
+							</div>
+							<h3>{entry.title}</h3>
+							<p>{entry.description}</p>
+							{entry.href && (
+								<a
+									class='tree-card-link'
+									href={entry.href}
+									target={entry.href.startsWith('http') ? '_blank' : undefined}
+									rel={entry.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+								>
+									{entry.linkLabel} <span aria-hidden='true'>{entry.href.startsWith('http') ? '↗' : '→'}</span>
+								</a>
+							)}
+						</article>
+					</li>
+				))
+			}
+		</ol>
+	</div>
+</section>
