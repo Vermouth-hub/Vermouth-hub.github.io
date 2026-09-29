@@ -8,9 +8,10 @@ export const profile = {
   major: '信息安全',
   direction: 'LLM for Software Engineering',
   intro:
-    '安徽大学信息安全专业本科生，关注大语言模型、智能体与软件工程的交叉研究。',
+    'I\'m currently a student in Anhui University, majoring in Information Security. My research interests focus on the application of large language models in software engineering and relative security problems. And I\'m also interested in cybersecurity(CVE-relative), and I enjoy exploring the intersection of AI and security.',
   research:
-    '目前主要围绕自动化软件缺陷复现开展研究。在 TreeMind 中，我们将大语言模型的语义理解能力与蒙特卡洛树搜索的全局规划能力结合，用于从不完整的 Android Bug Report 中推断缺失操作，并完成目标驱动的界面探索。',
+  '',
   writing:
-    '这个博客用于沉淀科研过程和算法训练，包括论文阅读、实验复盘、研究工具以及机试算法总结。'
+    'This blog is used to document the research process and study notes, including paper reading, experiment review, and the insights on learning.'
+
 };
