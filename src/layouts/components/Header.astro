@@ -1,8 +1,10 @@
 ---
 import HeaderLink from './HeaderLink.astro';
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import { slugify } from '../../utils';
 import { SHOW_TAGS, SHOW_LINKS } from '../../consts';
+import SmallAva from '../../assets/img/small-ava.jpg';
 
 const posts = await getCollection('blog');
 const tags = [...new Set(posts.flatMap((post) => post.data.tags ?? []))].slice(0, 5);
@@ -14,7 +16,9 @@ const blogActive = pathname === '/posts/' || pathname.startsWith('/tags/') || po
 	<div class='site-nav'>
 		<div class='site-nav__content'>
 			<a href='/' class='site-brand' aria-label='Ve2m0uth home'>
-				<span class='brand-mark' aria-hidden='true'>V</span>
+				<span class='brand-mark' aria-hidden='true'>
+					<Image src={SmallAva} alt='' width={56} height={56} loading='eager' />
+				</span>
 				<span>Ve2m0uth</span>
 			</a>
 
