@@ -10,8 +10,8 @@ const pathname = Astro.url.pathname;
 const blogActive = pathname === '/posts/' || pathname.startsWith('/tags/') || posts.some((post) => pathname === `/${post.id}/`);
 ---
 
-<header class='site-header'>
-	<div class='site-nav container'>
+<header class='site-header' data-state='visible' data-scrolled='false'>
+	<div class='site-nav'>
 		<a href='/' class='site-brand' aria-label='Ve2m0uth home'>
 			<span class='brand-mark' aria-hidden='true'>V</span>
 			<span>Ve2m0uth</span>
@@ -81,10 +81,22 @@ const blogActive = pathname === '/posts/' || pathname.startsWith('/tags/') || po
 		</div>
 	</div>
 
-	<script is:inline>
+	<script>
+		import { setupNavbarVisibility } from '../../navbarVisibility';
+
+		const header = document.querySelector<HTMLElement>('.site-header');
 		const toggle = document.getElementById('themeToggle');
 		const menuButton = document.getElementById('mobileMenuButton');
 		const navigation = document.getElementById('primaryNavigation');
+		const blogMenu = document.querySelector<HTMLElement>('.blog-menu');
+		const navbarVisibility = header
+			? setupNavbarVisibility(header, {
+					isInteractionOpen: () =>
+						menuButton?.getAttribute('aria-expanded') === 'true' ||
+						Boolean(blogMenu?.matches(':hover, :focus-within'))
+				})
+			: null;
+
 		toggle?.addEventListener('click', () => {
 			const dark = document.documentElement.classList.toggle('dark');
 			localStorage.setItem('theme', dark ? 'dark' : 'light');
@@ -93,6 +105,9 @@ const blogActive = pathname === '/posts/' || pathname.startsWith('/tags/') || po
 			const open = menuButton.getAttribute('aria-expanded') !== 'true';
 			menuButton.setAttribute('aria-expanded', String(open));
 			navigation?.classList.toggle('is-open', open);
+			navbarVisibility?.show();
 		});
+		blogMenu?.addEventListener('pointerenter', () => navbarVisibility?.show());
+		blogMenu?.addEventListener('focusin', () => navbarVisibility?.show());
 	</script>
 </header>

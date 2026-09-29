@@ -8,7 +8,7 @@ export const profile = {
 	major: '信息安全',
 	direction: 'LLM for Software Engineering',
 	intro:
-		"I'm currently a student in Anhui University, majoring in Information Security. My research interests focus on the application of large language models in software engineering and relative security problems. And I'm also interested in cybersecurity(CVE-relative), and I enjoy exploring the intersection of AI and security.",
+		"I'm an coming Ph.D. student at the School of Cybersecurity, Huazhong University of Science and Technology, under the supervision of Prof. Haoyu Wang. My research interests focus on the application of large language models in software engineering and relative security problems. And I'm also interested in cybersecurity(CVE-relative), and I enjoy exploring the intersection of AI and security.",
 	research: 'My research focuses on the LLM4SE、LLM Agent and cybersecurity.',
 	writing:
 		'This blog is used to document the research process and study notes, including paper reading, experiment review, and the insights on learning.',
@@ -29,7 +29,7 @@ export const profile = {
 	topics: ['LLM Agents', 'Software Engineering', 'Cybersecurity', 'Android', 'MCTS', 'Algorithms'],
 	education: [
 		{
-			school: 'Anhui University',
+			school: 'Huazhong University of Science and Technology',
 			programme: 'Information Security'
 		}
 	]
